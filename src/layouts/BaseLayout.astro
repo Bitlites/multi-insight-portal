@@ -1,0 +1,30 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const { title = "Multi-Insight Portal" } = Astro.props;
+---
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="preconnect" href="https://googleapis.com">
+		<link rel="preconnect" href="https://gstatic.com" crossorigin>
+		<link href="https://googleapis.com/css2?family=Cabinet+Grotesk:wght@800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+		<title>{title}</title>
+	</head>
+	<body class="bg-[#F8FAFC] text-slate-900 font-['Inter',sans-serif] antialiased">
+		
+		<Header />
+		
+		<main class="max-w-7xl mx-auto px-4 py-8">
+			<!-- This <slot /> acts as a portal where individual page data injects -->
+			<slot />
+		</main>
+
+		<Footer />
+
+	</body>
+</html>
