@@ -1,5 +1,5 @@
 ---
-// Primary dynamic content routing array
+// Primary content routing array
 const categories = ["Home", "Current Affairs", "Technology", "Science", "Finance", "Social Studies"];
 ---
 
@@ -15,63 +15,134 @@ const categories = ["Home", "Current Affairs", "Technology", "Science", "Finance
 </div>
 
 <!-- MAIN STICKY NAVIGATION HUB -->
-<header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
-	<div class="max-w-7xl mx-auto px-4 py-4 flex flex-col items-center justify-between gap-4 lg:flex-row">
+<header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-50 shadow-sm transition-colors duration-200">
+	<div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
 		
-		<!-- BRAND LOGO -->
-		<a href="/" class="text-2xl font-black tracking-tight text-slate-900 hover:text-blue-900 transition-colors shrink-0">
+		<!-- BRAND LOGO (ALWAYS ON THE LEFT) -->
+		<a href="/" class="text-xl md:text-2xl font-black tracking-tight text-slate-900 dark:text-white hover:text-blue-600 transition-colors shrink-0">
 			MULTI-INSIGHT <span class="text-blue-600">PORTAL</span>
 		</a>
 		
-		<!-- CENTRAL CONTENT NAVIGATION LINKS -->
-		<nav class="flex flex-wrap justify-center items-center gap-1 text-xs font-bold uppercase">
+		<!-- CENTRAL CONTENT NAVIGATION LINKS (HIDDEN ON MOBILE & TABLET, VISIBLE ON DESKTOP xl) -->
+		<nav class="hidden xl:flex flex-wrap justify-center items-center gap-1 text-xs font-bold uppercase">
 			{categories.map((category) => {
 				const targetUrl = category === "Home" ? "/" : `/category/${category.toLowerCase().replace(/\s+/g, '-')}`;
 				return (
-					<a href={targetUrl} class="px-2.5 py-1.5 rounded-md text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-all duration-150">
+					<a href={targetUrl} class="px-2.5 py-1.5 rounded-md text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all duration-150">
 						{category}
 					</a>
 				)
 			})}
 			
-			<!-- SECTION DIVIDER WALL -->
-			<span class="w-px h-4 bg-slate-200 hidden lg:inline-block mx-2"></span>
-			
-			<!-- UTILITY DOCUMENTATION LINKS -->
-			<a href="/about" class="px-2.5 py-1.5 text-slate-500 hover:text-blue-600 transition-colors">About Us</a>
-			<a href="/contact" class="px-2.5 py-1.5 text-slate-500 hover:text-blue-600 transition-colors">Contact</a>
+			<span class="w-px h-4 bg-slate-200 dark:bg-slate-700 hidden xl:inline-block mx-2"></span>
+			<a href="/about" class="px-2.5 py-1.5 text-slate-500 dark:text-slate-400 hover:text-blue-600 transition-colors">About Us</a>
+			<a href="/contact" class="px-2.5 py-1.5 text-slate-500 dark:text-slate-400 hover:text-blue-600 transition-colors">Contact</a>
 		</nav>
 
-		<!-- RIGHT UTILITY ELEMENT CONTROLS (SEARCH & DARK THEME TOGGLE) -->
-		<div class="flex items-center gap-2 border-t border-slate-100 pt-3 lg:pt-0 lg:border-t-0 shrink-0">
+		<!-- RIGHT UTILITY CONTROLS (ALWAYS ANCHORED RIGHT) -->
+		<div class="flex items-center gap-2 shrink-0">
 			
-			<!-- INTERACTIVE SEARCH ACTION BUTTON -->
+			<!-- CLEANED SEARCH LINK -->
 			<a 
 				href="/search"
 				aria-label="Open Search Page"
-				class="p-2 text-slate-500 hover:text-blue-600 hover:bg-slate-50 rounded-lg border border-slate-200/60 shadow-sm transition-all cursor-pointer flex items-center justify-center">
+				class="p-2 text-slate-500 dark:text-slate-400 hover:text-blue-600 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg border border-slate-200/60 dark:border-slate-700 shadow-sm transition-all flex items-center justify-center cursor-pointer">
 				<svg xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
 					<path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.603 10.601Z" />
 				</svg>
-				<button 
-					aria-label="Search Portal"
-					class="p-2 text-slate-500 hover:text-blue-600 hover:bg-slate-50 rounded-lg border border-slate-200/60 shadow-sm transition-all cursor-pointer">
-					<svg xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
-						<path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.603 10.601Z" />
-					</svg>
-				</button>
 			</a>
 
-			<!-- BRIGHTNESS / THEME SUN-MOON SWITCHER TOGGLE -->
+			<!-- THEME TOGGLE BUTTON -->
 			<button 
-				id="theme-toggle-btn"
+				id="theme-toggle"
 				aria-label="Switch UI Theme Mode"
-				class="p-2 text-slate-500 hover:text-blue-600 hover:bg-slate-50 rounded-lg border border-slate-200/60 shadow-sm transition-all cursor-pointer">
-				<!-- Moon Vector Configuration (Shows by Default) -->
-				<svg xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
+				class="p-2 text-slate-500 dark:text-slate-400 hover:text-blue-600 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg border border-slate-200/60 dark:border-slate-700 shadow-sm transition-all flex items-center justify-center cursor-pointer"
+			>
+				<!-- Sun Icon (visible in dark mode) -->
+				<svg id="theme-sun" xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4 hidden">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m0 13.5V21M6.75 6.75l1.591 1.591M15.659 15.659l1.591 1.591M5.25 12H3m18 0h-2.25m-14.25 5.25l1.591-1.591M15.659 8.341l1.591-1.591M12 7.5a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9Z" />
+				</svg>
+				<!-- Moon Icon (visible in light mode) -->
+				<svg id="theme-moon" xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
 				</svg>
 			</button>
+
+			<!-- HAMBURGER MENU BUTTON (VISIBLE ON MOBILE & TABLET, HIDDEN ON DESKTOP xl) -->
+			<button 
+				id="mobile-menu-btn"
+				aria-label="Open Navigation Menu"
+				class="xl:hidden p-2 text-slate-500 dark:text-slate-400 hover:text-blue-600 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg border border-slate-200/60 dark:border-slate-700 shadow-sm transition-all flex items-center justify-center cursor-pointer">
+				<svg xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+				</svg>
+			</button>
+
 		</div>
 	</div>
+
+	<!-- MOBILE DROPDOWN DRAWER (HIDDEN BY DEFAULT, SLIDES OPEN VIA JS) -->
+	<div id="mobile-drawer" class="hidden xl:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-3 space-y-1 shadow-inner">
+		{categories.map((category) => {
+			const targetUrl = category === "Home" ? "/" : `/category/${category.toLowerCase().replace(/\s+/g, '-')}`;
+			return (
+				<a href={targetUrl} class="block px-3 py-2 rounded-lg text-sm font-bold uppercase text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-blue-600">
+					{category}
+				</a>
+			)
+		})}
+		<div class="h-px bg-slate-100 dark:bg-slate-800 my-2"></div>
+		<a href="/about" class="block px-3 py-2 rounded-lg text-sm font-bold text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800">About Us</a>
+		<a href="/contact" class="block px-3 py-2 rounded-lg text-sm font-bold text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800">Contact Us</a>
+	</div>
 </header>
+
+<!-- INTERACTIVE SCRIPTS CODE BLOCK -->
+<script is:inline>
+	// 1. HAMBURGER CLICK DROPDOWN CONTROLLER
+	const menuBtn = document.getElementById('mobile-menu-btn');
+	const drawer = document.getElementById('mobile-drawer');
+
+	if (menuBtn && drawer) {
+		menuBtn.addEventListener('click', () => {
+			drawer.classList.toggle('hidden');
+		});
+	}
+
+	// 2. THEME MODE SWAPPING SCRIPT (DARK MODE CONTROLLER)
+	const themeToggleBtn = document.getElementById('theme-toggle');
+	const sunIcon = document.getElementById('theme-sun');
+	const moonIcon = document.getElementById('theme-moon');
+
+	// Determine original state from local memory configurations
+	if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+		document.documentElement.classList.add('dark');
+		if(sunIcon && moonIcon) {
+			sunIcon.classList.remove('hidden');
+			moonIcon.classList.add('hidden');
+		}
+	} else {
+		document.documentElement.classList.remove('dark');
+		if(sunIcon && moonIcon) {
+			sunIcon.classList.add('hidden');
+			moonIcon.classList.remove('hidden');
+		}
+	}
+
+	if (themeToggleBtn) {
+		themeToggleBtn.addEventListener('click', () => {
+			// Toggle dark selectors inside root window
+			if (document.documentElement.classList.contains('dark')) {
+				document.documentElement.classList.remove('dark');
+				localStorage.setItem('color-theme', 'light');
+				sunIcon.classList.add('hidden');
+				moonIcon.classList.remove('hidden');
+			} else {
+				document.documentElement.classList.add('dark');
+				localStorage.setItem('color-theme', 'dark');
+				sunIcon.classList.remove('hidden');
+				moonIcon.classList.add('hidden');
+			}
+		});
+	}
+</script>
