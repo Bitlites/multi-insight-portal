@@ -1,0 +1,92 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// 1. Generate URLs for all your navigation categories automatically
+export async function getStaticPaths() {
+  return [
+    { params: { category: 'current-affairs' }, props: { name: 'Current Affairs' } },
+    { params: { category: 'technology' }, props: { name: 'Technology' } },
+    { params: { category: 'science' }, props: { name: 'Science' } },
+    { params: { category: 'finance' }, props: { name: 'Finance' } },
+    { params: { category: 'social-studies' }, props: { name: 'Social Studies' } },
+  ];
+}
+
+const { category } = Astro.params;
+const { name } = Astro.props;
+
+// 2. Fetch only the articles that match this specific category page
+const allPosts = await getCollection('posts');
+const filteredPosts = allPosts.filter(post => post.data.category.toLowerCase() === category);
+---
+
+<BaseLayout title={`${name} Hub — Multi-Insight Portal`}>
+  
+  <div class="mb-8">
+    <span class="text-xs font-bold uppercase tracking-widest text-blue-600">Category Archive</span>
+    <h1 class="text-4xl font-black tracking-tight text-slate-900 mt-1 font-['Cabinet_Grotesk'] uppercase">
+      {name}
+    </h1>
+    <p class="text-slate-500 mt-2">Explore our latest analyses, data trends, and curated insights on {name}.</p>
+  </div>
+
+  <!-- ADSENSE LEADERBOARD IN-CATEGORY ACCELERATOR -->
+  <div class="w-full bg-slate-100 border border-dashed border-slate-300 rounded-2xl p-4 text-center mb-10 font-mono text-xs text-slate-400 select-none">
+    [ GOOGLE ADSENSE BANNER — CATEGORY TOP SLOT ]
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+    
+    <!-- ARTICLES STREAM FEED -->
+    <section class="lg:col-span-2 space-y-6">
+      {filteredPosts.length === 0 ? (
+        <div class="bg-white rounded-2xl p-8 text-center border border-slate-200/60 shadow-sm">
+          <p class="text-slate-400 font-medium">No publications posted under this category yet.</p>
+          <p class="text-xs text-slate-400 mt-1">New article drafts are currently being verified by our editorial board.</p>
+        </div>
+      ) : (
+        filteredPosts.map((post) => (
+          <article class="group bg-white rounded-2xl border border-slate-200/60 overflow-hidden flex flex-col md:flex-row gap-6 p-5 hover:border-blue-200 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300">
+            
+            <!-- Graphic Thumbnail Background Card Container -->
+            <div class="w-full md:w-2/5 bg-gradient-to-br from-slate-800 to-slate-950 h-44 rounded-xl shrink-0 flex flex-col justify-between p-4 text-white/90 relative overflow-hidden shadow-sm">
+              <span class="bg-white/10 backdrop-blur-md px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider self-start border border-white/10">Insight Card</span>
+              <div class="font-bold text-sm tracking-tight text-white/90 line-clamp-2 uppercase font-mono">{post.data.title}</div>
+            </div>
+
+            <!-- Meta Text Strings Layout Summary -->
+            <div class="w-full md:w-3/5 flex flex-col justify-between py-1">
+              <div>
+                <h3 class="text-lg font-bold text-slate-900 tracking-tight leading-snug group-hover:text-blue-600 transition-colors">
+                  <a href={`/posts/${post.id}`}>
+                    {post.data.title}
+                  </a>
+                </h3>
+                <p class="text-slate-500 text-xs mt-2 leading-relaxed line-clamp-2">
+                  {post.data.summary}
+                </p>
+              </div>
+              
+              <div class="text-[11px] font-medium text-slate-400 mt-4 flex items-center justify-between border-t border-slate-100 pt-2.5">
+                <span>By {post.data.author}</span>
+                <span>{post.data.date}</span>
+              </div>
+            </div>
+
+          </article>
+        ))
+      )}
+    </section>
+
+    <!-- RIGHT STICKY WIDGET AREA -->
+    <aside class="space-y-6">
+      <div class="bg-white p-5 rounded-2xl border border-slate-200/60 shadow-sm">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-900 border-b border-slate-100 pb-2 mb-3">Monetization Analytics</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">Ensure traffic validation metrics meet basic evaluation policies prior to finalizing ad block script implementation loops.</p>
+      </div>
+    </aside>
+
+  </div>
+
+</BaseLayout>
