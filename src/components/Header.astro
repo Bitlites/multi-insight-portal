@@ -18,12 +18,12 @@ const categories = ["Home", "Current Affairs", "Technology", "Science", "Finance
 <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-50 shadow-sm transition-colors duration-200">
 	<div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
 		
-		<!-- BRAND LOGO (ALWAYS ON THE LEFT) -->
+		<!-- BRAND LOGO -->
 		<a href="/" class="text-xl md:text-2xl font-black tracking-tight text-slate-900 dark:text-white hover:text-blue-600 transition-colors shrink-0">
 			MULTI-INSIGHT <span class="text-blue-600">PORTAL</span>
 		</a>
 		
-		<!-- CENTRAL CONTENT NAVIGATION LINKS (HIDDEN ON MOBILE & TABLET, VISIBLE ON DESKTOP xl) -->
+		<!-- CENTRAL NAVIGATION LINKS (DESKTOP) -->
 		<nav class="hidden xl:flex flex-wrap justify-center items-center gap-1 text-xs font-bold uppercase">
 			{categories.map((category) => {
 				const targetUrl = category === "Home" ? "/" : `/category/${category.toLowerCase().replace(/\s+/g, '-')}`;
@@ -39,14 +39,15 @@ const categories = ["Home", "Current Affairs", "Technology", "Science", "Finance
 			<a href="/contact" class="px-2.5 py-1.5 text-slate-500 dark:text-slate-400 hover:text-blue-600 transition-colors">Contact</a>
 		</nav>
 
-		<!-- RIGHT UTILITY CONTROLS (ALWAYS ANCHORED RIGHT) -->
+		<!-- RIGHT UTILITY CONTROLS -->
 		<div class="flex items-center gap-2 shrink-0">
 			
-			<!-- CLEANED SEARCH LINK -->
+			<!-- SEARCH BAR LINK -->
 			<a 
 				href="/search"
 				aria-label="Open Search Page"
-				class="p-2 text-slate-500 dark:text-slate-400 hover:text-blue-600 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg border border-slate-200/60 dark:border-slate-700 shadow-sm transition-all flex items-center justify-center cursor-pointer">
+				class="p-2 text-slate-500 dark:text-slate-400 hover:text-blue-600 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg border border-slate-200/60 dark:border-slate-700 shadow-sm transition-all flex items-center justify-center cursor-pointer"
+			>
 				<svg xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
 					<path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.603 10.601Z" />
 				</svg>
@@ -68,20 +69,26 @@ const categories = ["Home", "Current Affairs", "Technology", "Science", "Finance
 				</svg>
 			</button>
 
-			<!-- HAMBURGER MENU BUTTON (VISIBLE ON MOBILE & TABLET, HIDDEN ON DESKTOP xl) -->
+			<!-- HAMBURGER MENU BUTTON (CONVERTS TO X) -->
 			<button 
 				id="mobile-menu-btn"
-				aria-label="Open Navigation Menu"
-				class="xl:hidden p-2 text-slate-500 dark:text-slate-400 hover:text-blue-600 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg border border-slate-200/60 dark:border-slate-700 shadow-sm transition-all flex items-center justify-center cursor-pointer">
-				<svg xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
+				aria-label="Toggle Navigation Menu"
+				class="xl:hidden p-2 text-slate-500 dark:text-slate-400 hover:text-blue-600 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg border border-slate-200/60 dark:border-slate-700 shadow-sm transition-all flex items-center justify-center cursor-pointer"
+			>
+				<!-- Hamburger Bars Icon -->
+				<svg id="hamburger-bars-icon" xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+				</svg>
+				<!-- "X" Close Icon (Hidden by Default) -->
+				<svg id="hamburger-close-icon" xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4 hidden">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
 				</svg>
 			</button>
 
 		</div>
 	</div>
 
-	<!-- MOBILE DROPDOWN DRAWER (HIDDEN BY DEFAULT, SLIDES OPEN VIA JS) -->
+	<!-- MOBILE DROPDOWN DRAWER -->
 	<div id="mobile-drawer" class="hidden xl:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-3 space-y-1 shadow-inner">
 		{categories.map((category) => {
 			const targetUrl = category === "Home" ? "/" : `/category/${category.toLowerCase().replace(/\s+/g, '-')}`;
@@ -97,52 +104,54 @@ const categories = ["Home", "Current Affairs", "Technology", "Science", "Finance
 	</div>
 </header>
 
-<!-- INTERACTIVE SCRIPTS CODE BLOCK -->
 <script is:inline>
-	// 1. HAMBURGER CLICK DROPDOWN CONTROLLER
+	// 1. HAMBURGER AND "X" ICON SWITCHER SCRIPT
 	const menuBtn = document.getElementById('mobile-menu-btn');
 	const drawer = document.getElementById('mobile-drawer');
+	const barsIcon = document.getElementById('hamburger-bars-icon');
+	const closeIcon = document.getElementById('hamburger-close-icon');
 
-	if (menuBtn && drawer) {
+	if (menuBtn && drawer && barsIcon && closeIcon) {
 		menuBtn.addEventListener('click', () => {
-			drawer.classList.toggle('hidden');
+			const isClosed = drawer.classList.toggle('hidden');
+			if (isClosed) {
+				barsIcon.classList.remove('hidden');
+				closeIcon.classList.add('hidden');
+			} else {
+				barsIcon.classList.add('hidden');
+				closeIcon.classList.remove('hidden');
+			}
 		});
 	}
 
-	// 2. THEME MODE SWAPPING SCRIPT (DARK MODE CONTROLLER)
+	// 2. THEME MODE SYNCHRONIZATION RUNNER
 	const themeToggleBtn = document.getElementById('theme-toggle');
 	const sunIcon = document.getElementById('theme-sun');
 	const moonIcon = document.getElementById('theme-moon');
 
-	// Determine original state from local memory configurations
-	if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-		document.documentElement.classList.add('dark');
-		if(sunIcon && moonIcon) {
-			sunIcon.classList.remove('hidden');
-			moonIcon.classList.add('hidden');
-		}
-	} else {
-		document.documentElement.classList.remove('dark');
-		if(sunIcon && moonIcon) {
-			sunIcon.classList.add('hidden');
-			moonIcon.classList.remove('hidden');
+	function updateToggleIcons() {
+		if (document.documentElement.classList.contains('dark')) {
+			sunIcon?.classList.remove('hidden');
+			moonIcon?.classList.add('hidden');
+		} else {
+			sunIcon?.classList.add('hidden');
+			moonIcon?.classList.remove('hidden');
 		}
 	}
 
+	// Run validation tracking rules immediately
+	updateToggleIcons();
+
 	if (themeToggleBtn) {
 		themeToggleBtn.addEventListener('click', () => {
-			// Toggle dark selectors inside root window
 			if (document.documentElement.classList.contains('dark')) {
 				document.documentElement.classList.remove('dark');
 				localStorage.setItem('color-theme', 'light');
-				sunIcon.classList.add('hidden');
-				moonIcon.classList.remove('hidden');
 			} else {
 				document.documentElement.classList.add('dark');
 				localStorage.setItem('color-theme', 'dark');
-				sunIcon.classList.remove('hidden');
-				moonIcon.classList.add('hidden');
 			}
+			updateToggleIcons();
 		});
 	}
 </script>

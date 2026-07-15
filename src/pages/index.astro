@@ -27,8 +27,7 @@ const recentPosts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - ne
 				<p class="text-slate-400">No content articles uploaded to the engine directory tracking systems yet.</p>
 			) : (
 				recentPosts.map((post) => (
-					<article class="group bg-white rounded-2xl border border-slate-200/60 overflow-hidden flex flex-col md:flex-row gap-6 p-5 hover:border-blue-200 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300">
-						
+					<article class="group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/60 dark:border-slate-800 overflow-hidden flex flex-col md:flex-row gap-6 p-5 hover:border-blue-200 dark:hover:border-blue-900 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300">	
 						<!-- Visual Thumbnail Vector Blocks -->
 						<div class="w-full md:w-2/5 bg-gradient-to-br from-blue-600 to-indigo-900 h-48 rounded-xl shrink-0 flex flex-col justify-between p-4 text-white/90 relative overflow-hidden shadow-sm">
 							<span class="bg-white/20 backdrop-blur-md px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider self-start border border-white/10">
@@ -66,10 +65,10 @@ const recentPosts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - ne
 
 		<!-- RIGHT SIDE COLUMN: STICKY NAVIGATION AD SLOT -->
 		<aside class="space-y-8">
-			<div class="bg-white p-6 rounded-2xl border border-slate-200/60 shadow-sm">
-				<h2 class="text-md font-black uppercase tracking-wider text-slate-900 border-b border-slate-100 pb-3 mb-4 font-['Cabinet_Grotesk']">Trending</h2>
-				<p class="text-xs text-slate-500 font-medium">1. Global Inflation Index Baselines</p>
-				<p class="text-xs text-slate-500 font-medium mt-2">2. Quantum Processing Protocols</p>
+			<div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/60 dark:border-slate-800 shadow-sm">
+				<h2 class="text-md font-black uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-3 mb-4 font-['Cabinet_Grotesk']">Trending</h2>
+					<p class="text-xs text-slate-500 font-medium">1. Global Inflation Index Baselines</p>
+					<p class="text-xs text-slate-500 font-medium mt-2">2. Quantum Processing Protocols</p>
 			</div>
 			
 			<div class="w-full bg-slate-100 border border-dashed border-slate-300 rounded-2xl py-32 text-center text-xs tracking-wider text-slate-400 font-mono select-none">

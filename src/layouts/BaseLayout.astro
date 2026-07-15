@@ -22,7 +22,10 @@ const { title = "Multi-Insight Portal" } = Astro.props;
 		<link href="https://googleapis.com/css2?family=Cabinet+Grotesk:wght@800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 		<title>{title}</title>
 	</head>
-	<body class="bg-[#F8FAFC] text-slate-900 font-['Inter',sans-serif] antialiased">
+	
+	<!-- Updated layout class tokens to listen to light/dark actions -->
+	<body class="bg-[#F8FAFC] text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-['Inter',sans-serif] antialiased transition-colors duration-200">
+
 		
 		<Header />
 		
