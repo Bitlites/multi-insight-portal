@@ -1,0 +1,57 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// 1. Scan your markdown folder and map out every article link structure dynamically
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map(post => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+
+// 2. Compile the raw markdown text layout into clean HTML components
+const { Content } = await render(post);
+---
+
+<BaseLayout title={`${post.data.title} — Multi-Insight Portal`}>
+
+  <!-- ARTICLE HEADER STRUCTURE -->
+  <article class="max-w-4xl mx-auto py-4">
+    <div class="mb-6">
+      <div class="flex items-center gap-2 mb-3">
+        <a href={`/category/${post.data.category.toLowerCase()}`} class="text-xs font-extrabold uppercase tracking-widest text-blue-600 hover:underline">
+          {post.data.category}
+        </a>
+        <span class="text-slate-300">•</span>
+        <span class="text-xs font-medium text-slate-400">{post.data.date}</span>
+      </div>
+      <h1 class="text-3xl md:text-5xl font-black font-['Cabinet_Grotesk'] tracking-tight text-slate-900 leading-tight">
+        {post.data.title}
+      </h1>
+      <p class="text-slate-500 text-md md:text-xl mt-4 leading-relaxed font-normal italic border-l-4 border-slate-200 pl-4">
+        {post.data.summary}
+      </p>
+    </div>
+
+    <!-- MIDDLE POST LEADERBOARD AD SLOT (EXCELLENT FOR EARNINGS) -->
+    <div class="w-full bg-slate-100 border border-dashed border-slate-300 rounded-2xl p-4 text-center my-8 font-mono text-xs text-slate-400 select-none">
+      [ GOOGLE ADSENSE — MID-POST INLINE AD CONTROLLER ]
+    </div>
+
+    <!-- MAIN BODY RICH TEXT CONTENT LAYER -->
+    <!-- The prose classes below automatically make standard markdown text match premium typography scales -->
+    <div class="prose prose-slate max-w-none prose-headings:font-['Cabinet_Grotesk'] prose-headings:font-black prose-headings:tracking-tight prose-p:leading-relaxed prose-p:text-slate-700 prose-a:text-blue-600 hover:prose-a:underline">
+      <Content />
+    </div>
+
+    <!-- BOTTOM DISPLAY BANNER SLOT FOR HIGH IMPRESSIONS -->
+    <div class="w-full bg-slate-100 border border-dashed border-slate-300 rounded-2xl p-6 text-center mt-12 font-mono text-xs text-slate-400 select-none">
+      [ GOOGLE ADSENSE — ARTICLE FOOTER NATIVE DISPLAY SLOT ]
+    </div>
+  </article>
+
+</BaseLayout>
