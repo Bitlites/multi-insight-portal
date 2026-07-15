@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Search Publications — Multi-Insight Portal">
+
+  <div class="max-w-3xl mx-auto py-4">
+    <div class="mb-8 text-center md:text-left">
+      <span class="text-xs font-bold uppercase tracking-widest text-blue-600">Search Engine</span>
+      <h1 class="text-4xl font-black tracking-tight text-slate-900 mt-1 font-['Cabinet_Grotesk'] uppercase">
+        Portal Discovery
+      </h1>
+      <p class="text-slate-500 mt-2 text-sm">Query our static data vaults across science, technology, history, and market indexes.</p>
+    </div>
+
+    <!-- NATIVE SEARCH STYLING ASSET PIPELINES -->
+    <link href="/_pagefind/pagefind-ui.css" rel="stylesheet" />
+    <script src="/_pagefind/pagefind-ui.js" is:inline></script>
+
+    <!-- LIVE SEARCH INJECTION ANCHOR NODE -->
+    <div id="search-container" class="bg-white p-6 rounded-2xl border border-slate-200/60 shadow-sm min-h-[200px]"></div>
+
+    <script is:inline>
+      window.addEventListener('DOMContentLoaded', () => {
+        if (typeof PagefindUI !== 'undefined') {
+          new PagefindUI({ 
+            element: "#search-container", 
+            showSubResults: true,
+            showImages: false,
+            placeholder: "Type keywords (e.g., Quantum, Inflation, Market)..."
+          });
+        }
+      });
+    </script>
+  </div>
+
+  <!-- ADSENSE INTEGRATION DISPLAY BLOCK -->
+  <div class="max-w-3xl mx-auto w-full bg-slate-100 border border-dashed border-slate-300 rounded-2xl p-4 text-center mt-12 font-mono text-xs text-slate-400 select-none">
+    [ GOOGLE ADSENSE — TARGETED SEARCH ENGAGEMENT AD SLOT ]
+  </div>
+
+</BaseLayout>
+
+<style is:global>
+  /* Premium UI styling adjustments to make the default search match your Tailwind layout theme */
+  :root {
+    --pagefind-ui-primary: #1e40af;
+    --pagefind-ui-text: #0f172a;
+    --pagefind-ui-background: #ffffff;
+    --pagefind-ui-border: #e2e8f0;
+    --pagefind-ui-font: 'Inter', sans-serif;
+  }
+  .pagefind-ui__search-input {
+    font-weight: 500 !important;
+    border-radius: 12px !important;
+  }
+  .pagefind-ui__result {
+    border-top: 1px solid #f1f5f9 !important;
+    padding: 1.5rem 0 !important;
+  }
+  .pagefind-ui__result-title a {
+    font-family: 'Cabinet Grotesk', sans-serif !important;
+    font-weight: 800 !important;
+    color: #0f172a !important;
+  }
+  .pagefind-ui__result-title a:hover {
+    color: #2563eb !important;
+    text-decoration: none !important;
+  }
+</style>

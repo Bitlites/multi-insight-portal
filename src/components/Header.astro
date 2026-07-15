@@ -1,9 +1,9 @@
 ---
-// Only include primary content categories here to prevent duplicate tabs
+// Primary dynamic content routing array
 const categories = ["Home", "Current Affairs", "Technology", "Science", "Finance", "Social Studies"];
 ---
 
-<!-- TOP RUNNING INFO TICKER -->
+<!-- TOP LIVE RUNNING DATA TICKER -->
 <div class="bg-blue-900 text-white text-[11px] font-semibold py-2 px-4 shadow-inner">
 	<div class="max-w-7xl mx-auto flex items-center justify-between">
 		<div class="flex items-center gap-2 overflow-hidden">
@@ -14,30 +14,64 @@ const categories = ["Home", "Current Affairs", "Technology", "Science", "Finance
 	</div>
 </div>
 
-<!-- HEADER HUB -->
+<!-- MAIN STICKY NAVIGATION HUB -->
 <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
 	<div class="max-w-7xl mx-auto px-4 py-4 flex flex-col items-center justify-between gap-4 lg:flex-row">
+		
+		<!-- BRAND LOGO -->
 		<a href="/" class="text-2xl font-black tracking-tight text-slate-900 hover:text-blue-900 transition-colors shrink-0">
 			MULTI-INSIGHT <span class="text-blue-600">PORTAL</span>
 		</a>
 		
-		<!-- CLEAN MODULAR NAVBAR PILLS -->
-		<nav class="flex flex-wrap justify-center items-center gap-1.5 text-xs font-bold uppercase">
+		<!-- CENTRAL CONTENT NAVIGATION LINKS -->
+		<nav class="flex flex-wrap justify-center items-center gap-1 text-xs font-bold uppercase">
 			{categories.map((category) => {
 				const targetUrl = category === "Home" ? "/" : `/category/${category.toLowerCase().replace(/\s+/g, '-')}`;
 				return (
-					<a href={targetUrl} class="px-3 py-1.5 rounded-md text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-all duration-150">
+					<a href={targetUrl} class="px-2.5 py-1.5 rounded-md text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-all duration-150">
 						{category}
 					</a>
 				)
 			})}
 			
-			<!-- SEPARATOR LINE -->
+			<!-- SECTION DIVIDER WALL -->
 			<span class="w-px h-4 bg-slate-200 hidden lg:inline-block mx-2"></span>
 			
-			<!-- STATIC INFORMATION PAGES -->
-			<a href="/about" class="px-3 py-1.5 text-slate-500 hover:text-blue-600 transition-colors">About Us</a>
-			<a href="/contact" class="px-3 py-1.5 text-slate-500 hover:text-blue-600 transition-colors">Contact Us</a>
+			<!-- UTILITY DOCUMENTATION LINKS -->
+			<a href="/about" class="px-2.5 py-1.5 text-slate-500 hover:text-blue-600 transition-colors">About Us</a>
+			<a href="/contact" class="px-2.5 py-1.5 text-slate-500 hover:text-blue-600 transition-colors">Contact</a>
 		</nav>
+
+		<!-- RIGHT UTILITY ELEMENT CONTROLS (SEARCH & DARK THEME TOGGLE) -->
+		<div class="flex items-center gap-2 border-t border-slate-100 pt-3 lg:pt-0 lg:border-t-0 shrink-0">
+			
+			<!-- INTERACTIVE SEARCH ACTION BUTTON -->
+			<a 
+				href="/search"
+				aria-label="Open Search Page"
+				class="p-2 text-slate-500 hover:text-blue-600 hover:bg-slate-50 rounded-lg border border-slate-200/60 shadow-sm transition-all cursor-pointer flex items-center justify-center">
+				<svg xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
+					<path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.603 10.601Z" />
+				</svg>
+				<button 
+					aria-label="Search Portal"
+					class="p-2 text-slate-500 hover:text-blue-600 hover:bg-slate-50 rounded-lg border border-slate-200/60 shadow-sm transition-all cursor-pointer">
+					<svg xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
+						<path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.603 10.601Z" />
+					</svg>
+				</button>
+			</a>
+
+			<!-- BRIGHTNESS / THEME SUN-MOON SWITCHER TOGGLE -->
+			<button 
+				id="theme-toggle-btn"
+				aria-label="Switch UI Theme Mode"
+				class="p-2 text-slate-500 hover:text-blue-600 hover:bg-slate-50 rounded-lg border border-slate-200/60 shadow-sm transition-all cursor-pointer">
+				<!-- Moon Vector Configuration (Shows by Default) -->
+				<svg xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+				</svg>
+			</button>
+		</div>
 	</div>
 </header>
