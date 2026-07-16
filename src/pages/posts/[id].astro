@@ -15,43 +15,129 @@ const { post } = Astro.props;
 
 // 2. Compile the raw markdown text layout into clean HTML components
 const { Content } = await render(post);
+
+// 3. Fetch all publications globally to build dynamic cross-feeds for the sidebars
+const allPosts = await getCollection('posts');
+const sortedPosts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+// 4. Extract top 5 newest articles globally for the trending loop section
+const trendingPosts = sortedPosts.slice(0, 5);
+
+// 5. RECOMMENDATION ENGINE LOGIC: Extract exactly the latest 1 post from every category
+const targetCategories = ['current-affairs', 'technology', 'science', 'finance', 'social-studies'];
+const recommendedPosts = targetCategories.map(catId => {
+  return sortedPosts.find(p => p.data.category.toLowerCase() === catId);
+}).filter(Boolean);
 ---
 
 <BaseLayout title={`${post.data.title} — Multi-Insight Portal`}>
 
-  <!-- ARTICLE HEADER STRUCTURE -->
-  <article class="max-w-4xl mx-auto py-4">
-    <div class="mb-6">
-      <div class="flex items-center gap-2 mb-3">
-        <a href={`/category/${post.data.category.toLowerCase()}`} class="text-xs font-extrabold uppercase tracking-widest text-blue-600 hover:underline">
-          {post.data.category}
-        </a>
-        <span class="text-slate-300">•</span>
-        <span class="text-xs font-medium text-slate-400">{post.data.date}</span>
+  <!-- GOOGLE ADSENSE POST TOP BANNER -->
+  <div class="w-full bg-gradient-to-r from-slate-100 via-slate-50 to-slate-100 dark:from-slate-900 dark:via-slate-900 dark:to-slate-900 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl p-4 text-center mb-10 shadow-sm font-mono text-xs text-slate-400 select-none">
+    [ GOOGLE ADSENSE BANNER — POST TOP SLOT ]
+  </div>
+
+  <!-- 4-COLUMN STRUCTURAL PATTERN GRID -->
+  <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+    
+    <!-- COLUMN 1: LEFT VERTICAL AD CONTAINER (Hidden on mobile, visible on desktop) -->
+    <aside class="hidden lg:block lg:col-span-1 self-start sticky top-24">
+      <div class="w-full bg-gradient-to-b from-slate-100 to-slate-50 dark:from-slate-900 dark:to-slate-950 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl py-64 text-center text-xs tracking-wider text-slate-400 font-mono select-none">
+        [ GOOGLE ADSENSE <br/> LEFT VERTICAL <br/> SKYSCRAPER AD ]
       </div>
-      <h1 class="text-3xl md:text-5xl font-black font-['Cabinet_Grotesk'] tracking-tight text-slate-900 leading-tight">
-        {post.data.title}
-      </h1>
-      <p class="text-slate-500 text-md md:text-xl mt-4 leading-relaxed font-normal italic border-l-4 border-slate-200 pl-4">
-        {post.data.summary}
-      </p>
+    </aside>
+
+    <!-- COLUMNS 2 & 3: MAIN ARTICLE WRAPPER CONTENT -->
+    <div class="md:col-span-2 lg:col-span-2 space-y-6">
+      <article class="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/80 rounded-2xl p-6 md:p-8 shadow-sm">
+        
+        <!-- ARTICLE HERO META DETAILS -->
+        <div class="mb-6">
+          <div class="flex items-center gap-2 mb-3">
+            <a href={`/category/${post.data.category.toLowerCase()}`} class="text-xs font-extrabold uppercase tracking-widest text-blue-600 dark:text-blue-400 hover:underline">
+              {post.data.category}
+            </a>
+            <span class="text-slate-300 dark:text-slate-700">•</span>
+            <span class="text-xs font-medium text-slate-400 dark:text-slate-500">{post.data.date}</span>
+          </div>
+          <h1 class="text-2xl md:text-4xl font-black font-['Cabinet_Grotesk'] tracking-tight text-slate-900 dark:text-white leading-tight">
+            {post.data.title}
+          </h1>
+          <p class="text-slate-500 dark:text-slate-400 text-sm md:text-base mt-4 leading-relaxed font-normal italic border-l-4 border-slate-200 dark:border-slate-700 pl-4">
+            {post.data.summary}
+          </p>
+        </div>
+
+        <!-- RE-BALANCED MID-POST AD PLACEMENT -->
+        <div class="w-full bg-slate-50 dark:bg-slate-950 border border-dashed border-slate-200 dark:border-slate-800 rounded-xl p-4 text-center my-6 font-mono text-[10px] text-slate-400 select-none">
+          [ GOOGLE ADSENSE — MID-POST INLINE AD CONTROLLER ]
+        </div>
+
+        <!-- MAIN BODY RICH TEXT CONTENT LAYER -->
+        <!-- Built-in prose variables perfectly format markdown titles, paragraphs, and list text fields -->
+        <div class="prose prose-slate dark:prose-invert max-w-none prose-headings:font-['Cabinet_Grotesk'] prose-headings:font-black prose-headings:tracking-tight prose-p:leading-relaxed prose-p:text-slate-700 dark:prose-p:text-slate-300 prose-p:text-sm md:prose-p:text-base prose-a:text-blue-600 hover:prose-a:underline prose-li:text-slate-600 dark:prose-li:text-slate-400 prose-li:text-sm">
+          <Content />
+        </div>
+
+      </article>
     </div>
 
-    <!-- MIDDLE POST LEADERBOARD AD SLOT (EXCELLENT FOR EARNINGS) -->
-    <div class="w-full bg-slate-100 border border-dashed border-slate-300 rounded-2xl p-4 text-center my-8 font-mono text-xs text-slate-400 select-none">
-      [ GOOGLE ADSENSE — MID-POST INLINE AD CONTROLLER ]
-    </div>
+    <!-- COLUMN 4: RIGHT SECTION SIDEBAR COLUMN -->
+    <aside class="md:col-span-1 lg:col-span-1 space-y-8 self-start md:sticky md:top-24">
+      
+      <!-- TRENDING COMPONENT -->
+      <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/60 dark:border-slate-800/60 shadow-sm relative overflow-hidden">
+        <h2 class="text-md font-black uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-3.5 mb-5 font-['Cabinet_Grotesk'] flex items-center gap-2">
+          <span class="text-xl select-none">🔥</span> Trending
+        </h2>
+        <ul class="space-y-5">
+          {trendingPosts.map((p, index) => (
+            <li class="group cursor-pointer flex gap-3.5 items-start">
+              <span class="text-xl font-black text-slate-200 dark:text-slate-700 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-none font-['Cabinet_Grotesk']">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <div class="space-y-0.5">
+                <h4 class="text-xs font-bold text-slate-800 dark:text-slate-200 leading-snug group-hover:underline">
+                  <a href={`/posts/${p.id}`}>{p.data.title}</a>
+                </h4>
+                <span class="text-[9px] text-blue-600 dark:text-blue-400 font-extrabold uppercase tracking-widest block pt-0.5">
+                  {p.data.category}
+                </span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
 
-    <!-- MAIN BODY RICH TEXT CONTENT LAYER -->
-    <!-- The prose classes below automatically make standard markdown text match premium typography scales -->
-    <div class="prose prose-slate max-w-none prose-headings:font-['Cabinet_Grotesk'] prose-headings:font-black prose-headings:tracking-tight prose-p:leading-relaxed prose-p:text-slate-700 prose-a:text-blue-600 hover:prose-a:underline">
-      <Content />
-    </div>
+      <!-- HIGH ENGAGEMENT RECOMMENDED MODULE -->
+      <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/60 dark:border-slate-800/60 shadow-sm relative overflow-hidden">
+        <h2 class="text-md font-black uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-3.5 mb-5 font-['Cabinet_Grotesk'] flex items-center gap-2">
+          <span class="text-xl select-none">💡</span> Recommended For You
+        </h2>
+        <ul class="space-y-4">
+          {recommendedPosts.map((p) => (
+            <li class="group border-b border-slate-50 dark:border-slate-800/60 pb-3 last:border-0 last:pb-0">
+              <h4 class="text-xs font-bold text-slate-800 dark:text-slate-200 leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                <a href={`/posts/${p.id}`}>{p.data.title}</a>
+              </h4>
+              <span class="text-[9px] text-slate-400 dark:text-slate-500 font-medium block mt-1 uppercase font-mono">
+                {p.data.category} · {p.data.date}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
 
-    <!-- BOTTOM DISPLAY BANNER SLOT FOR HIGH IMPRESSIONS -->
-    <div class="w-full bg-slate-100 border border-dashed border-slate-300 rounded-2xl p-6 text-center mt-12 font-mono text-xs text-slate-400 select-none">
-      [ GOOGLE ADSENSE — ARTICLE FOOTER NATIVE DISPLAY SLOT ]
-    </div>
-  </article>
+      <!-- RIGHT SIDEBAR IN-FEED ADS CONTAINER -->
+      <div class="w-full bg-gradient-to-b from-slate-100 to-slate-50 dark:from-slate-900 dark:to-slate-950 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl py-32 text-center text-xs tracking-wider text-slate-400 font-mono select-none">
+        [ GOOGLE ADSENSE SIDEBAR BANNER ]
+      </div>
+    </aside>
 
+  </div>
+
+  <!-- BOTTOM FULL HORIZONTAL DISPLAY SLOT -->
+  <div class="w-full bg-gradient-to-r from-slate-100 via-slate-50 to-slate-100 dark:from-slate-900 dark:via-slate-900 dark:to-slate-900 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl p-5 text-center mt-12 shadow-sm font-mono text-xs text-slate-400 select-none">
+    [ GOOGLE ADSENSE — FOOTER HIGH-IMPRESSION NATIVE DISPLAY AD SLOT ]
+  </div>
 </BaseLayout>
