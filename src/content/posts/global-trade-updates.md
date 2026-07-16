@@ -16,9 +16,12 @@ Sovereign tracking data indicates shifting macroeconomic variables inside primar
 
 As traditional supply corridors experience structural friction, localized trading blocs are aggressively implementing defensive tariff protocols. This protectionist shift forces corporate logistics managers to balance immediate freight velocities against long-term regulatory expenses.
 
-*   **⚡ Modern Cargo Corridor Updates:** High-capacity bypass lines are routing around historically gridlocked maritime ports to minimize customs processing delays.
-*   **⚖️ Tariff Restructuring Benchmarks:** Regional manufacturing clusters are leveraging local tax exemptions to build protective moats around vulnerable consumer markets.
-*   **📉 Local Interest Velocity Curves:** Rising domestic lending baselines have squeezed warehouse expansion budgets, forcing inventories onto high-speed "just-in-time" transport tracks.
+*   ### ⚡ Modern Cargo Corridor Updates
+    High-capacity bypass lines are routing around historically gridlocked maritime ports to minimize customs processing delays.
+*   ### ⚖️ Tariff Restructuring Benchmarks
+    Regional manufacturing clusters are leveraging local tax exemptions to build protective moats around vulnerable consumer markets.
+*   ### 📉 Local Interest Velocity Curves
+    Rising domestic lending baselines have squeezed warehouse expansion budgets, forcing inventories onto high-speed "just-in-time" transport tracks.
 
 ---
 
