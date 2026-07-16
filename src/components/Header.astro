@@ -10,7 +10,7 @@ const categories = ["Home", "Current Affairs", "Technology", "Science", "Finance
 			<span class="bg-red-500 text-[9px] uppercase tracking-wider px-1.5 py-0.5 rounded font-bold animate-pulse">Live</span>
 			<p class="truncate font-medium text-blue-100">Portal Updates: Speed-optimized static site platform now active...</p>
 		</div>
-		<div class="hidden sm:block text-blue-200">Wednesday, July 15, 2026</div>
+		<div id="live-local-date" class="hidden sm:block text-blue-200 font-medium">Loading Date...</div>
 	</div>
 </div>
 
@@ -164,4 +164,13 @@ const categories = ["Home", "Current Affairs", "Technology", "Science", "Finance
 			updateToggleIcons();
 		});
 	}
+
+	// 3. LIVE CLIENT-SIDE USER TIMEZONE DATE GENERATOR
+	const dateContainer = document.getElementById('live-local-date');
+	if (dateContainer) {
+		const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+		// Formats string to user's localized browser language context automatically
+		dateContainer.innerText = new Date().toLocaleDateString(undefined, options);
+	}
+
 </script>

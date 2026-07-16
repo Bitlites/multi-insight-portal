@@ -25,16 +25,22 @@ const contentBlocks = [
 	
 	<!-- TOP GOOGLE ADSENSE LEADERBOARD CARD -->
 	<div class="w-full bg-gradient-to-r from-slate-100 via-slate-50 to-slate-100 dark:from-slate-900 dark:via-slate-900 dark:to-slate-900 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl p-4 text-center mb-10 shadow-sm relative overflow-hidden font-mono text-xs text-slate-400 select-none">
-		[ ADVERTISEMENT BANNER PLACEHOLDER - ADSENSE ]
+		[ ADVERTISEMENT BANNER PLACEHOLDER - ADSENSE LEADERBOARD ]
 	</div>
 
-	<!-- MAIN CONTENT INTERACTIVE HUB GRID -->
-	<div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+	<!-- 4-COLUMN LAYOUT MATRIX (LEFT ADS + CENTER FEEDS + RIGHT TRENDING/ADS) -->
+	<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
 		
-		<!-- LEFT SECTION SIDEBAR COLUMN (Occupies 2 columns on desktop) -->
-		<div class="lg:col-span-2 space-y-12">
+		<!-- COLUMN 1: LEFT VERTICAL SKYSCRAPER AD CONTAINER (Hidden on small mobile, visible from lg desktops) -->
+		<aside class="hidden lg:block lg:col-span-1 self-start sticky top-24">
+			<div class="w-full bg-gradient-to-b from-slate-100 to-slate-50 dark:from-slate-900 dark:to-slate-900 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl py-64 text-center text-xs tracking-wider text-slate-400 font-mono select-none">
+				[ GOOGLE ADSENSE <br/> LEFT VERTICAL <br/> SKYSCRAPER AD ]
+			</div>
+		</aside>
+
+		<!-- COLUMNS 2 & 3: CENTER MAIN SECTION CATEGORY FEEDS -->
+		<div class="md:col-span-2 lg:col-span-2 space-y-12">
 			{contentBlocks.map((block) => {
-				// Filter down to get up to 5 posts belonging strictly to this block's category
 				const categoryPosts = sortedPosts
 					.filter(post => post.data.category.toLowerCase() === block.id)
 					.slice(0, 5);
@@ -63,33 +69,44 @@ const contentBlocks = [
 							</div>
 						) : (
 							<div class="space-y-4">
-								{categoryPosts.map((post) => (
-									<article class="group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/60 dark:border-slate-800 overflow-hidden flex flex-col sm:flex-row gap-5 p-4 hover:border-blue-200 dark:hover:border-blue-900 hover:shadow-[0_8px_30px_rgb(0,0,0,0.03)] transition-all duration-300">
-										<!-- Small Responsive Vector Card Thumbnail Thumbnail -->
-										<div class="w-full sm:w-1/4 bg-gradient-to-br from-slate-800 to-slate-950 h-28 rounded-xl shrink-0 flex flex-col justify-between p-3 text-white/90 relative overflow-hidden shadow-sm">
-											<span class="bg-white/10 text-[8px] font-bold uppercase tracking-wider self-start px-1.5 py-0.5 rounded border border-white/5">Insight</span>
-											<div class="font-bold text-[10px] tracking-tight font-mono uppercase text-white/60 truncate">{post.id.replace(/-/g, ' ')}</div>
-										</div>
+								{categoryPosts.map((post) => {
+									// Compute dynamic reading time based on markdown body content words count
+									const words = post.body ? post.body.split(/\s+/).length : 0;
+									const readTimeMin = Math.max(1, Math.ceil(words / 200));
 
-										<!-- Text Context Details Grid -->
-										<div class="w-full sm:w-3/4 flex flex-col justify-between py-0.5">
-											<div>
-												<h3 class="text-md font-bold text-slate-900 dark:text-white tracking-tight leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-													<a href={`/posts/${post.id}`}>
-														{post.data.title}
-													</a>
-												</h3>
-												<p class="text-slate-500 dark:text-slate-400 text-xs mt-1.5 line-clamp-2 leading-relaxed font-normal">
-													{post.data.summary}
-												</p>
+									return (
+										<article class="group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/60 dark:border-slate-800 overflow-hidden flex flex-col sm:flex-row gap-5 p-4 hover:border-blue-200 dark:hover:border-blue-900 hover:shadow-[0_8px_30px_rgb(0,0,0,0.03)] transition-all duration-300">
+											<!-- Visual Thumbnail Graphic Card Container -->
+											<div class="w-full sm:w-1/3 bg-gradient-to-br from-slate-800 to-slate-950 h-28 rounded-xl shrink-0 flex flex-col justify-between p-3 text-white/90 relative overflow-hidden shadow-sm">
+												<span class="bg-white/10 text-[8px] font-bold uppercase tracking-wider self-start px-1.5 py-0.5 rounded border border-white/5">Insight</span>
+												<div class="font-bold text-[10px] tracking-tight font-mono uppercase text-white/60 truncate">{post.id.replace(/-/g, ' ')}</div>
 											</div>
-											<div class="text-[10px] font-medium text-slate-400 mt-3 flex items-center justify-between border-t border-slate-50 dark:border-slate-800/60 pt-2">
-												<span>By {post.data.author}</span>
-												<span>{post.data.date}</span>
+
+											<!-- Text Context Grid -->
+											<div class="w-full sm:w-2/3 flex flex-col justify-between py-0.5">
+												<div>
+													<h3 class="text-md font-bold text-slate-900 dark:text-white tracking-tight leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+														<a href={`/posts/${post.id}`}>
+															{post.data.title}
+														</a>
+													</h3>
+													<p class="text-slate-500 dark:text-slate-400 text-xs mt-1.5 line-clamp-2 leading-relaxed font-normal">
+														{post.data.summary}
+													</p>
+												</div>
+												<!-- Dynamic Reading Time Implementation Integration -->
+												<div class="text-[10px] font-medium text-slate-400 mt-3 flex items-center justify-between border-t border-slate-50 dark:border-slate-800/60 pt-2">
+													<span>By {post.data.author}</span>
+													<span class="flex items-center gap-1 font-sans">
+														<span>⏱️ {readTimeMin} min read</span>
+														<span>·</span>
+														<span>{post.data.date}</span>
+													</span>
+												</div>
 											</div>
-										</div>
-									</article>
-								))}
+										</article>
+									);
+								})}
 							</div>
 						)}
 					</section>
@@ -97,8 +114,8 @@ const contentBlocks = [
 			})}
 		</div>
 
-		<!-- RIGHT COLUMN CONTENT SIDEBAR (Dynamic Trending & In-Feed Display Ads) -->
-		<aside class="space-y-8 self-start lg:sticky lg:top-24">
+		<!-- COLUMN 4: RIGHT SECTION SIDEBAR COLUMN (Dynamic Trending & In-Feed Display Ads) -->
+		<aside class="md:col-span-1 lg:col-span-1 space-y-8 self-start md:sticky md:top-24">
 			
 			<!-- MODERNIZED DYNAMIC TRENDING PANEL BOX -->
 			<div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/60 dark:border-slate-800 shadow-sm relative overflow-hidden">
@@ -132,7 +149,7 @@ const contentBlocks = [
 			
 			<!-- GOOGLE ADSENSE MEDIUM SIDEBAR CARD -->
 			<div class="w-full bg-gradient-to-b from-slate-100 to-slate-50 dark:from-slate-900 dark:to-slate-900 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl py-32 text-center text-xs tracking-wider text-slate-400 font-mono select-none">
-				[ GOOGLE ADSENSE SIDEBAR CONTAINER ]
+				[ GOOGLE ADSENSE RIGHT SIDEBAR CONTAINER ]
 			</div>
 		</aside>
 
