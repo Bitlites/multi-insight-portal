@@ -151,3 +151,24 @@ const recommendedPosts = targetCategories.map(catId => {
     [ GOOGLE ADSENSE — FOOTER HIGH-IMPRESSION NATIVE DISPLAY AD SLOT ]
   </div>
 </BaseLayout>
+
+<!-- SYSTEM FORCED OVERRIDE SPACING LAYOUT FOR ARTICLES TEXT FLOW -->
+<style is:global>
+  /* Target only paragraphs inside your premium editorial rich text prose content block */
+  .prose p {
+    margin-bottom: 1.5rem !important; /* Forces 24px of deep, readable vertical space below paragraphs */
+    display: block !important;
+  }
+  
+  /* Add ample vertical breathing room above and below your section subheadings */
+  .prose h3 {
+    margin-top: 2rem !important;
+    margin-bottom: 1rem !important;
+    display: block !important;
+  }
+  
+  /* Ensure individual list bullet nodes don't bleed into each other */
+  .prose ul li, .prose ol li {
+    margin-bottom: 0.75rem !important;
+  }
+</style>
