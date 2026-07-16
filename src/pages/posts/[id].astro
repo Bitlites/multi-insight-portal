@@ -74,8 +74,16 @@ const recommendedPosts = targetCategories.map(catId => {
         </div>
 
         <!-- MAIN BODY RICH TEXT CONTENT LAYER -->
-        <!-- Built-in prose variables perfectly format markdown titles, paragraphs, and list text fields -->
-        <div class="prose prose-slate dark:prose-invert max-w-none prose-headings:font-['Cabinet_Grotesk'] prose-headings:font-black prose-headings:tracking-tight prose-p:leading-relaxed prose-p:text-slate-700 dark:prose-p:text-slate-300 prose-p:text-sm md:prose-p:text-base prose-a:text-blue-600 hover:prose-a:underline prose-li:text-slate-600 dark:prose-li:text-slate-400 prose-li:text-sm">
+        <!-- ENHANCED PREMIUM EDITORIAL ARTICLE RICH TEXT LAYER -->
+        <div class="prose prose-slate dark:prose-invert max-w-none 
+          prose-headings:font-['Cabinet_Grotesk'] prose-headings:font-black prose-headings:tracking-tight prose-headings:text-slate-900 dark:prose-headings:text-white
+          prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:border-b prose-h2:border-slate-100 dark:prose-h2:border-slate-800 prose-h2:pb-2
+          prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-3
+          prose-p:text-sm md:prose-p:text-[15px] prose-p:leading-relaxed prose-p:text-slate-700 dark:prose-p:text-slate-300 prose-p:mb-5
+          prose-blockquote:not-italic prose-blockquote:border-l-4 prose-blockquote:border-blue-600 dark:prose-blockquote:border-blue-500 prose-blockquote:bg-slate-50 dark:prose-blockquote:bg-slate-950 prose-blockquote:px-5 prose-blockquote:py-4 prose-blockquote:rounded-r-xl prose-blockquote:my-8 prose-blockquote:shadow-sm
+          prose-ul:space-y-2.5 prose-ul:my-5 prose-li:text-slate-600 dark:prose-li:text-slate-400 prose-li:text-sm md:prose-li:text-[15px]
+          prose-ol:space-y-2.5 prose-ol:my-5
+          prose-hr:border-slate-200 dark:prose-hr:border-slate-800 prose-hr:my-8">
           <Content />
         </div>
 
