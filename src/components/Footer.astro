@@ -10,21 +10,21 @@ const categories = ["Current Affairs", "Technology", "Science", "Finance", "Soci
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
 			
 			<!-- COLUMN 1: BRANDING & BRIEF DESCRIPTION -->
-			<div class="space-y-4">
+			<div class="space-y-4 flex flex-col items-start justify-start">
 				<!-- Wrapped entire block in an absolute hyperlink for full clickability -->
-				<a href="/" class="flex items-center gap-2.5 tracking-tight group shrink-0 self-start">
-					<!-- Mini Branding Icon (Locked with true square bounds to prevent any clipping or distortion) -->
-					<div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-black text-lg shadow-sm border border-blue-500/20 group-hover:scale-105 transition-transform duration-200 shrink-0 aspect-square">
-						<svg xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+				<a href="/" class="flex items-center gap-2.5 tracking-tight group shrink-0 select-none">
+					<!-- Mini Branding Icon (Explicitly hardcoded dimension limits to stop squeezing) -->
+					<div style="width: 36px; height: 36px; min-width: 36px; min-height: 36px;" class="rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white shadow-sm border border-blue-500/20 group-hover:scale-105 transition-transform duration-200 aspect-square shrink-0">
+						<svg xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 20px; height: 20px; stroke-width: 2.5px;">
 							<path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
 						</svg>
 					</div>
-					<!-- Match name typography exactly with header tokens (White main text + blue suffix) -->
-					<span class="text-xl font-black text-white group-hover:text-blue-500 transition-colors duration-200">
+					<!-- Match name typography exactly with header tokens -->
+					<span class="text-xl font-black text-white tracking-tight group-hover:text-blue-500 transition-colors duration-200">
 						MULTI-INSIGHT <span class="text-blue-600 dark:text-blue-500 group-hover:text-blue-400">PORTAL</span>
 					</span>
 				</a>
-				<p class="text-xs text-slate-400 leading-relaxed font-normal">
+				<p class="text-xs text-slate-400 leading-relaxed font-normal pt-1">
 					A data-first static intelligence dashboard. We deliver speed-optimized analyses across science, technology, financial indicators, and global structural shifts.
 				</p>
 			</div>
