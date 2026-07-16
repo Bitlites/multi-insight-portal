@@ -2,26 +2,26 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-// Fetch all publications globally to keep sidebar feeds active and synced
+// Fetch all publications globally to keep sidebars synchronized
 const allPosts = await getCollection('posts');
 const sortedPosts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 const trendingPosts = sortedPosts.slice(0, 5);
 
-// Dynamic recommended links engine loop
+// Dynamic recommended links logic
 const targetCategories = ['current-affairs', 'technology', 'science', 'finance', 'social-studies'];
 const recommendedPosts = targetCategories.map(catId => {
   return sortedPosts.find(p => p.data.category.toLowerCase() === catId);
 }).filter(Boolean);
 ---
 
-<BaseLayout title="About Our Team — Multi-Insight Portal">
+<BaseLayout title="Privacy Policy — Multi-Insight Portal">
 
-  <!-- GOOGLE ADSENSE TOP SLOT BANNER -->
+  <!-- GOOGLE ADSENSE LEGAL TOP BANNER -->
   <div class="w-full bg-gradient-to-r from-slate-100 via-slate-50 to-slate-100 dark:from-slate-900 dark:via-slate-900 dark:to-slate-900 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl p-4 text-center mb-10 shadow-sm font-mono text-xs text-slate-400 select-none">
-    [ GOOGLE ADSENSE BANNER — ABOUT US TOP SLOT ]
+    [ GOOGLE ADSENSE BANNER — COMPLIANCE TOP SLOT ]
   </div>
 
-  <!-- 4-COLUMN STRUCTURAL PATTERN MATRIX GRID -->
+  <!-- 4-COLUMN PATTERN MATRIX GRID -->
   <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
     
     <!-- COLUMN 1: LEFT VERTICAL AD CONTAINER -->
@@ -31,42 +31,47 @@ const recommendedPosts = targetCategories.map(catId => {
       </div>
     </aside>
 
-    <!-- COLUMNS 2 & 3: MAIN CARD CONTENT CONTAINER -->
+    <!-- COLUMNS 2 & 3: MAIN LEGAL CONTENT WRAPPER -->
     <div class="md:col-span-2 lg:col-span-2 space-y-6">
       <div class="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/80 rounded-2xl p-6 md:p-8 shadow-sm">
         
-        <!-- COMPLIANCE TITLE HEADER -->
-        <div class="mb-6 border-b border-slate-150 dark:border-slate-800 pb-4">
-          <span class="text-xs font-extrabold uppercase tracking-widest text-blue-600 dark:text-blue-400">Platform Profile</span>
+        <!-- HEADER METADATA -->
+        <div class="mb-6 border-b border-slate-100 dark:border-slate-800 pb-4">
+          <span class="text-xs font-extrabold uppercase tracking-widest text-blue-600 dark:text-blue-400">Legal Documents</span>
           <h1 class="text-3xl md:text-4xl font-black font-['Cabinet_Grotesk'] tracking-tight text-slate-900 dark:text-white mt-1">
-            About Our Mission
+            Privacy Policy
           </h1>
+          <p class="text-slate-400 text-xs mt-2 font-mono">Last Updated: July 16, 2026</p>
         </div>
 
-        <!-- PROFILE BODY CONTENT LAYOUT -->
+        <!-- COMPLIANT TEXT BLOCKS WITH TYPOGRAPHY STYLES -->
         <div class="prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 text-sm md:text-[15px] leading-relaxed space-y-6">
           
-          <p>Welcome to <strong>Multi-Insight Portal</strong>, a premier independent static journalism intelligence dashboard. Our framework is dedicated to filtering, parsing, and delivering high-utility documentation across modern macroeconomics, technology horizons, scientific developments, and regional demographic trends.</p>
+          <p>At <strong>Multi-Insight Portal</strong>, accessible from our primary domain channels, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by our platform infrastructure and how we utilize it.</p>
 
-          <blockquote class="border-l-4 border-blue-600 dark:border-blue-500 bg-slate-50 dark:bg-slate-950 px-4 py-3 rounded-r-xl font-medium italic my-5">
-            Our Core Directive: Speed, factual accuracy, and structural transparency across modern digital media landscapes.
-          </blockquote>
+          <h2 class="text-lg font-black font-['Cabinet_Grotesk'] text-slate-900 dark:text-white uppercase pt-4 border-b border-slate-100 dark:border-slate-800 pb-1">1. Log Files and Static Auditing</h2>
+          <p>Multi-Insight Portal follows a standard procedure of using log files. These files log visitors when they access websites. The information collected by log files includes internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and optionally the number of clicks. These are not linked to any information that is personally identifiable.</p>
 
-          <h2 class="text-lg font-black font-['Cabinet_Grotesk'] text-slate-900 dark:text-white uppercase pt-2">Our Editorial Values</h2>
-          <p>We believe that high-quality information shouldn't be weighed down by bloated script frameworks or heavy, slow server pipelines. By assembling our insights on an advanced static decentralized infrastructure (Astro & Cloudflare Distributed Edge CDN), we ensure our analytical articles load instantly on any mobile device anywhere on the planet.</p>
+          <!-- REQUIRED ADVERTISING DISCLOSURE BLOCK FOR GOOGLE ADSENSE POLICY COMPLIANCE -->
+          <h2 class="text-lg font-black font-['Cabinet_Grotesk'] text-slate-900 dark:text-white uppercase pt-4 border-b border-slate-100 dark:border-slate-800 pb-1">2. Google DoubleClick DART Cookie</h2>
+          <p>Google is one of the third-party vendors on our site. It also uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to our portal and other sites on the internet. Visitors may choose to decline the use of DART cookies by visiting the Google ad and content network Privacy Policy at the following URL: <a href="https://google.com" class="text-blue-600 hover:underline font-semibold" target="_blank">https://google.com</a>.</p>
 
-          <h2 class="text-lg font-black font-['Cabinet_Grotesk'] text-slate-900 dark:text-white uppercase pt-2">Monetization Disclosures</h2>
-          <p>To keep our publications completely free and universally accessible, Multi-Insight Portal relies on premium programmatic advertisement networks (such as Google AdSense) to fund ongoing research, data collation, and hosting server costs. All third-party advertising modules operate under strict user data safety rules detailed in our official privacy guidelines.</p>
+          <h2 class="text-lg font-black font-['Cabinet_Grotesk'] text-slate-900 dark:text-white uppercase pt-4 border-b border-slate-100 dark:border-slate-800 pb-1">3. Privacy Policies of Advertising Partners</h2>
+          <p>Third-party ad servers or ad networks utilize technologies like cookies, JavaScript, or Web Beacons that are used in their respective advertisements and links that appear on Multi-Insight Portal, which are sent directly to users' browsers. They automatically receive your IP address when this occurs. These technologies are used to measure the effectiveness of their advertising campaigns and/or to personalize the advertising content that you see on websites that you visit.</p>
 
+          <h2 class="text-lg font-black font-['Cabinet_Grotesk'] text-slate-900 dark:text-white uppercase pt-4 border-b border-slate-100 dark:border-slate-800 pb-1">4. Third Party Privacy Policies</h2>
+          <p>Multi-Insight Portal's Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad servers for more detailed information. It may include their practices and instructions about how to opt-out of certain options.</p>
+
+          <h2 class="text-lg font-black font-['Cabinet_Grotesk'] text-slate-900 dark:text-white uppercase pt-4 border-b border-slate-100 dark:border-slate-800 pb-1">5. Consent Validation</h2>
+          <p>By using our website infrastructure platforms, you hereby signify absolute consent to our Privacy Policy documentation framework and agree to its structural Terms of Service rules.</p>
         </div>
-
       </div>
     </div>
 
-    <!-- COLUMN 4: RIGHT PANEL SIDEBAR CONTAINER -->
+    <!-- COLUMN 4: RIGHT SECTION SIDEBAR COLUMN -->
     <aside class="md:col-span-1 lg:col-span-1 space-y-8 self-start md:sticky md:top-24">
       
-      <!-- TRENDING CONTAINER -->
+      <!-- TRENDING COMPONENT -->
       <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/60 dark:border-slate-800/60 shadow-sm relative overflow-hidden">
         <h2 class="text-md font-black uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-3.5 mb-5 font-['Cabinet_Grotesk'] flex items-center gap-2">
           <span class="text-xl select-none">🔥</span> Trending
@@ -90,7 +95,7 @@ const recommendedPosts = targetCategories.map(catId => {
         </ul>
       </div>
 
-      <!-- RECOMMENDED FEED -->
+      <!-- RECOMMENDED MODULE -->
       <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/60 dark:border-slate-800/60 shadow-sm relative overflow-hidden">
         <h2 class="text-md font-black uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-3.5 mb-5 font-['Cabinet_Grotesk'] flex items-center gap-2">
           <span class="text-xl select-none">💡</span> Recommended
@@ -108,12 +113,10 @@ const recommendedPosts = targetCategories.map(catId => {
           ))}
         </ul>
       </div>
-
     </aside>
-
   </div>
 
-  <!-- BOTTOM FULL HORIZONTAL AD DISPLAY SLOT -->
+  <!-- BOTTOM FULL HORIZONTAL GOOGLE ADSENSE FOOTER SLOT -->
   <div class="w-full bg-gradient-to-r from-slate-100 via-slate-50 to-slate-100 dark:from-slate-900 dark:via-slate-900 dark:to-slate-900 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl p-5 text-center mt-12 shadow-sm font-mono text-xs text-slate-400 select-none">
     [ GOOGLE ADSENSE — FOOTER HIGH-IMPRESSION NATIVE DISPLAY AD SLOT ]
   </div>
