@@ -2,16 +2,16 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-// 1. Fetch all articles from the local markdown engine tracking loop
+// Fetch all articles from the local markdown collection
 const allPosts = await getCollection('posts');
 
-// 2. Sort all posts globally by date (Newest First) for your trending and primary streams
+// Sort all posts globally by date (Newest First)
 const sortedPosts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
-// 3. Extract the top 5 newest articles globally to serve the trending sidebar container
+// Extract the top 5 newest articles globally to serve the trending sidebar
 const trendingPosts = sortedPosts.slice(0, 5);
 
-// 4. Define our primary content categories alongside their matching creative emojis
+// Define content categories with emojis
 const contentBlocks = [
 	{ id: 'current-affairs', label: 'Current-Affairs', emoji: '📰' },
 	{ id: 'technology', label: 'Technology', emoji: '🚀' },
@@ -24,31 +24,31 @@ const contentBlocks = [
 <BaseLayout title="Home — Multi-Insight Portal">
 	
 	<!-- TOP GOOGLE ADSENSE LEADERBOARD CARD -->
-	<div class="w-full bg-gradient-to-r from-slate-100 via-slate-50 to-slate-100 dark:from-slate-900 dark:via-slate-900 dark:to-slate-900 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl p-4 text-center mb-10 shadow-sm relative overflow-hidden font-mono text-xs text-slate-400 select-none">
-		[ ADVERTISEMENT BANNER PLACEHOLDER - ADSENSE LEADERBOARD ]
+	<div class="w-full bg-gradient-to-r from-slate-100 via-slate-50 to-slate-100 dark:from-slate-900 dark:via-slate-900/60 dark:to-slate-900 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl p-4 text-center mb-10 shadow-sm relative overflow-hidden font-mono text-xs text-slate-400 select-none">
+		[ ADVERTISEMENT BANNER PLACEHOLDER - GOOGLE ADSENSE LEADERBOARD ]
 	</div>
 
 	<!-- 4-COLUMN LAYOUT MATRIX (LEFT ADS + CENTER FEEDS + RIGHT TRENDING/ADS) -->
 	<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
 		
-		<!-- COLUMN 1: LEFT VERTICAL SKYSCRAPER AD CONTAINER (Hidden on small mobile, visible from lg desktops) -->
+		<!-- COLUMN 1: LEFT VERTICAL SKYSCRAPER AD CONTAINER -->
 		<aside class="hidden lg:block lg:col-span-1 self-start sticky top-24">
-			<div class="w-full bg-gradient-to-b from-slate-100 to-slate-50 dark:from-slate-900 dark:to-slate-900 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl py-64 text-center text-xs tracking-wider text-slate-400 font-mono select-none">
+			<div class="w-full bg-gradient-to-b from-slate-100 to-slate-50 dark:from-slate-900 dark:to-slate-950 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl py-64 text-center text-xs tracking-wider text-slate-400 font-mono select-none">
 				[ GOOGLE ADSENSE <br/> LEFT VERTICAL <br/> SKYSCRAPER AD ]
 			</div>
 		</aside>
 
-		<!-- COLUMNS 2 & 3: CENTER MAIN SECTION CATEGORY FEEDS -->
-		<div class="md:col-span-2 lg:col-span-2 space-y-12">
+		<!-- COLUMNS 2 & 3: CENTER MAIN SECTION CATEGORY FEEDS (Upped gap to space-y-16 for premium breathing room) -->
+		<div class="md:col-span-2 lg:col-span-2 space-y-16">
 			{contentBlocks.map((block) => {
 				const categoryPosts = sortedPosts
 					.filter(post => post.data.category.toLowerCase() === block.id)
 					.slice(0, 5);
 
 				return (
-					<section class="space-y-5">
+					<section class="space-y-6">
 						<!-- CATEGORY HUB SECTION CONTAINER HEADER -->
-						<div class="flex items-center justify-between border-b-2 border-slate-900 dark:border-slate-800 pb-2">
+						<div class="flex items-center justify-between border-b-2 border-slate-900 dark:border-slate-700 pb-2">
 							<h2 class="text-xl font-black font-['Cabinet_Grotesk'] tracking-tight text-slate-900 dark:text-white uppercase flex items-center gap-2">
 								<span class="text-2xl select-none">{block.emoji}</span> {block.label}
 							</h2>
@@ -64,22 +64,22 @@ const contentBlocks = [
 
 						<!-- ACCORDION CONTENT FEED CARDS LIST -->
 						{categoryPosts.length === 0 ? (
-							<div class="bg-white dark:bg-slate-900 rounded-2xl p-6 text-center border border-slate-100 dark:border-slate-800 shadow-sm">
-								<p class="text-xs text-slate-400 font-medium">No publications posted under {block.label} yet.</p>
+							<div class="bg-white dark:bg-slate-900 rounded-2xl p-6 text-center border border-slate-150 dark:border-slate-800/80 shadow-sm">
+								<p class="text-xs text-slate-400 dark:text-slate-500 font-medium">No publications posted under {block.label} yet.</p>
 							</div>
 						) : (
-							<div class="space-y-4">
+							<div class="space-y-5">
 								{categoryPosts.map((post) => {
 									// Compute dynamic reading time based on markdown body content words count
 									const words = post.body ? post.body.split(/\s+/).length : 0;
 									const readTimeMin = Math.max(1, Math.ceil(words / 200));
 
 									return (
-										<article class="group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/60 dark:border-slate-800 overflow-hidden flex flex-col sm:flex-row gap-5 p-4 hover:border-blue-200 dark:hover:border-blue-900 hover:shadow-[0_8px_30px_rgb(0,0,0,0.03)] transition-all duration-300">
+										<article class="group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/60 dark:border-slate-800/60 overflow-hidden flex flex-col sm:flex-row gap-5 p-4 hover:border-blue-200 dark:hover:border-blue-900 hover:shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-300">
 											<!-- Visual Thumbnail Graphic Card Container -->
-											<div class="w-full sm:w-1/3 bg-gradient-to-br from-slate-800 to-slate-950 h-28 rounded-xl shrink-0 flex flex-col justify-between p-3 text-white/90 relative overflow-hidden shadow-sm">
-												<span class="bg-white/10 text-[8px] font-bold uppercase tracking-wider self-start px-1.5 py-0.5 rounded border border-white/5">Insight</span>
-												<div class="font-bold text-[10px] tracking-tight font-mono uppercase text-white/60 truncate">{post.id.replace(/-/g, ' ')}</div>
+											<div class="w-full sm:w-1/3 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-950 h-28 rounded-xl shrink-0 flex flex-col justify-between p-3 text-slate-700 dark:text-white/90 relative overflow-hidden shadow-inner border border-slate-100 dark:border-transparent">
+												<span class="bg-white/80 dark:bg-white/10 backdrop-blur-sm text-[8px] font-bold uppercase tracking-wider self-start px-1.5 py-0.5 rounded border border-slate-200 dark:border-white/5">Insight</span>
+												<div class="font-bold text-[10px] tracking-tight font-mono uppercase text-slate-500 dark:text-white/40 truncate">{post.id.replace(/-/g, ' ')}</div>
 											</div>
 
 											<!-- Text Context Grid -->
@@ -90,12 +90,12 @@ const contentBlocks = [
 															{post.data.title}
 														</a>
 													</h3>
-													<p class="text-slate-500 dark:text-slate-400 text-xs mt-1.5 line-clamp-2 leading-relaxed font-normal">
+													<!-- FIXED DARK MODE CONTRAST: Shifted to slate-300 for crisp readability -->
+													<p class="text-slate-500 dark:text-slate-300 text-xs mt-1.5 line-clamp-2 leading-relaxed font-normal">
 														{post.data.summary}
 													</p>
 												</div>
-												<!-- Dynamic Reading Time Implementation Integration -->
-												<div class="text-[10px] font-medium text-slate-400 mt-3 flex items-center justify-between border-t border-slate-50 dark:border-slate-800/60 pt-2">
+												<div class="text-[10px] font-medium text-slate-400 dark:text-slate-500 mt-3 flex items-center justify-between border-t border-slate-50 dark:border-slate-800/60 pt-2">
 													<span>By {post.data.author}</span>
 													<span class="flex items-center gap-1 font-sans">
 														<span>⏱️ {readTimeMin} min read</span>
@@ -118,7 +118,7 @@ const contentBlocks = [
 		<aside class="md:col-span-1 lg:col-span-1 space-y-8 self-start md:sticky md:top-24">
 			
 			<!-- MODERNIZED DYNAMIC TRENDING PANEL BOX -->
-			<div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/60 dark:border-slate-800 shadow-sm relative overflow-hidden">
+			<div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/60 dark:border-slate-800/60 shadow-sm relative overflow-hidden">
 				<h2 class="text-md font-black uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-3.5 mb-5 font-['Cabinet_Grotesk'] flex items-center gap-2">
 					<span class="text-xl select-none">🔥</span> Trending
 				</h2>
@@ -126,10 +126,9 @@ const contentBlocks = [
 				{trendingPosts.length === 0 ? (
 					<p class="text-xs text-slate-400">No active portal publications recorded yet.</p>
 				) : (
-					<ul class="space-y-4">
+					<ul class="space-y-5">
 						{trendingPosts.map((post, index) => (
 							<li class="group cursor-pointer flex gap-3.5 items-start">
-								<!-- Bold Rank Number Counters -->
 								<span class="text-xl font-black text-slate-200 dark:text-slate-700 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-none font-['Cabinet_Grotesk']">
 									{String(index + 1).padStart(2, '0')}
 								</span>
@@ -137,7 +136,8 @@ const contentBlocks = [
 									<h4 class="text-xs font-bold text-slate-800 dark:text-slate-200 leading-snug group-hover:underline">
 										<a href={`/posts/${post.id}`}>{post.data.title}</a>
 									</h4>
-									<span class="text-[9px] text-blue-600 dark:text-blue-400 font-extrabold uppercase tracking-widest block">
+									<!-- FIXED DARK MODE CONTRAST: Switched to bright blue-400 / slate-400 variants -->
+									<span class="text-[9px] text-blue-600 dark:text-blue-400 font-extrabold uppercase tracking-widest block pt-0.5">
 										{post.data.category}
 									</span>
 								</div>
@@ -148,7 +148,7 @@ const contentBlocks = [
 			</div>
 			
 			<!-- GOOGLE ADSENSE MEDIUM SIDEBAR CARD -->
-			<div class="w-full bg-gradient-to-b from-slate-100 to-slate-50 dark:from-slate-900 dark:to-slate-900 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl py-32 text-center text-xs tracking-wider text-slate-400 font-mono select-none">
+			<div class="w-full bg-gradient-to-b from-slate-100 to-slate-50 dark:from-slate-900 dark:to-slate-950 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl py-32 text-center text-xs tracking-wider text-slate-400 font-mono select-none">
 				[ GOOGLE ADSENSE RIGHT SIDEBAR CONTAINER ]
 			</div>
 		</aside>
