@@ -10,6 +10,7 @@ const postsCollection = defineCollection({
 		category: z.string(), 
 		summary: z.string(),
 		author: z.string().default('Editorial Team'),
+		image: z.string().optional(), // Added: Link to a post cover image
 	}),
 });
 
