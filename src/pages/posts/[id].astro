@@ -6,7 +6,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { 
   TwitterShareButton, 
   LinkedInShareButton, 
-  WhatsAppShareButton, 
   FacebookShareButton, 
   RedditShareButton
 } from 'astro-social-share';
@@ -39,8 +38,8 @@ const requestUrl = Astro.url;
 const absolutePostUrl = requestUrl.origin + '/posts/' + post.id;
 const articleTitle = post.data.title + ' — Multi-Insight Portal';
 
-// FIXED DESKTOP WHATSAPP WEB VALUE: Pre-compiled seamlessly on the server layer
-const desktopWhatsAppWebUrl = 'https://web.whatsapp.com' + encodeURIComponent(articleTitle + ' - ' + absolutePostUrl);
+// FIXED PRODUCTION STRING: Strictly points to web.whatsapp.com with proper path query tokens
+const desktopWhatsAppWebUrl = 'https://whatsapp.com' + encodeURIComponent(articleTitle + ' - ' + absolutePostUrl);
 ---
 
 <BaseLayout title={`${post.data.title} — Multi-Insight Portal`}>
@@ -109,7 +108,7 @@ const desktopWhatsAppWebUrl = 'https://web.whatsapp.com' + encodeURIComponent(ar
           [ GOOGLE ADSENSE — MID-POST INLINE AD CONTROLLER ]
         </div>
 
-        <!-- MAIN BODY RICH TEXT CONTENT LAYER -->
+                <!-- MAIN BODY RICH TEXT CONTENT LAYER -->
         <div class="prose prose-slate dark:prose-invert max-w-none 
           prose-headings:font-['Cabinet_Grotesk'] prose-headings:font-black prose-headings:tracking-tight prose-headings:text-slate-900 dark:prose-headings:text-white
           prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:border-b prose-h2:border-slate-100 dark:prose-h2:border-slate-800 prose-h2:pb-2
@@ -145,7 +144,9 @@ const desktopWhatsAppWebUrl = 'https://web.whatsapp.com' + encodeURIComponent(ar
               <LinkedInShareButton url={absolutePostUrl} title={articleTitle} />
               
               <!-- Fixed Desktop WhatsApp Web Anchor Link — Zero-Hardcoded Variable Output -->
-              <WhatsAppShareButton url={desktopWhatsAppWebUrl} title="" />
+              <a href={desktopWhatsAppWebUrl} target="_blank" rel="noopener noreferrer" class="flex items-center justify-center bg-[#25D366] text-white hover:bg-[#128C7E] shadow-sm cursor-pointer border border-transparent" title="Share on WhatsApp Web">
+                <svg class="w-4 h-4 fill-current pointer-events-none" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.754-1.458L0 24zm6.59-4.846c1.66.986 3.284 1.489 4.936 1.49 5.351 0 9.701-4.337 9.704-9.677.001-2.586-1.001-5.019-2.823-6.845-1.821-1.827-4.246-2.831-6.834-2.832-5.356 0-9.707 4.338-9.71 9.68-.001 1.905.508 3.764 1.474 5.437l-.965 3.522 3.618-.951z"/></svg>
+              </a>
 
               <FacebookShareButton url={absolutePostUrl} title={articleTitle} />
               <RedditShareButton url={absolutePostUrl} title={articleTitle} />
@@ -329,6 +330,55 @@ const desktopWhatsAppWebUrl = 'https://web.whatsapp.com' + encodeURIComponent(ar
   .custom-social-theme-override a[href*="facebook.com"] { background-color: #1877f2 !important; }
   .custom-social-theme-override a[href*="reddit.com"] { background-color: #ff4500 !important; }
   .custom-social-theme-override a[href*="whatsapp.com"], .custom-social-theme-override a[href*="://whatsapp.com"] { background-color: #25d366 !important; }
+
+  /* Refines default package graphic bounding dimensions to look clean */
+  .custom-social-theme-override svg {
+    width: 0.95rem !important;
+    height: 0.95rem !important;
+  }
+  /* Locks absolute desktop dimensions, spacing parameters, and transitions */
+  .custom-social-theme-override a,
+  .custom-social-theme-override button,
+  .custom-social-theme-override div {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 0.5rem !important; /* rounded-lg */
+    width: 2rem !important;           /* standard w-8 scale layout */
+    height: 2rem !important;          /* standard h-8 scale layout */
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important; /* shadow-sm */
+    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border: none !important;
+    outline: none !important;
+  }
+
+  /* FORCES ALL INSIDE SYMBOLS AND GRAPHICS TO WHITE IN LIGHT THEME */
+  .custom-social-theme-override svg,
+  .custom-social-theme-override svg path,
+  .custom-social-theme-override svg circle {
+    fill: #ffffff !important;
+    color: #ffffff !important;
+    stroke: #ffffff !important;
+  }
+
+  /* PREMIUM DARK-THEME OVERRIDES: Forces clean light-grey backgrounds in Dark Mode */
+  .dark .custom-social-theme-override a,
+  .dark .custom-social-theme-override button {
+    background-color: #334155 !important; /* text contrast slate-700 background */
+  }
+  .dark .custom-social-theme-override svg,
+  .dark .custom-social-theme-override svg path {
+    fill: #f8fafc !important;             /* crisp text slate-50 color value */
+    color: #f8fafc !important;
+    stroke: #f8fafc !important;
+  }
+
+  /* Specific color themes to protect official brand colors in Light Mode */
+  .custom-social-theme-override a[href*="x.com"], .custom-social-theme-override button[aria-label*="X"] { background-color: #0f1419 !important; }
+  .custom-social-theme-override a[href*="linkedin.com"] { background-color: #0077b5 !important; }
+  .custom-social-theme-override a[href*="facebook.com"] { background-color: #1877f2 !important; }
+  .custom-social-theme-override a[href*="reddit.com"] { background-color: #ff4500 !important; }
+  .custom-social-theme-override a[href*="web.whatsapp.com"] { background-color: #25d366 !important; }
 
   /* Refines default package graphic bounding dimensions to look clean */
   .custom-social-theme-override svg {
