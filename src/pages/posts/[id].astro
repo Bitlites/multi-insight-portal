@@ -112,39 +112,38 @@ const recommendedPosts = targetCategories.map(catId => {
             📢 Enjoyed this analysis? Share with your network
           </h3>
           
-          <!-- Unified sharing array using data-id metadata tags -->
-          <div class="flex flex-wrap items-center gap-2" id="portal-share-container" data-post-id={post.id}>
-            <!-- X.com Share Trigger -->
-            <button data-platform="x" class="flex items-center justify-center p-3 bg-slate-900 hover:bg-black text-white rounded-lg shadow-sm transition-colors border border-slate-800 cursor-pointer w-10 h-10" title="Share on X">
+          <div class="flex flex-wrap items-center gap-2">
+            <!-- X.com Share Link -->
+            <a href="#" onclick="this.href='https://x.com' + encodeURIComponent(window.location.origin + window.location.pathname) + '&text=' + encodeURIComponent(document.title)" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center p-3 bg-slate-900 hover:bg-black text-white rounded-lg shadow-sm transition-colors border border-slate-800 cursor-pointer w-10 h-10" title="Share on X">
               <svg class="w-4 h-4 fill-current pointer-events-none" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            </button>
+            </a>
             
-            <!-- LinkedIn Share Trigger -->
-            <button data-platform="linkedin" class="flex items-center justify-center p-3 bg-[#0077B5] hover:bg-[#005E8F] text-white rounded-lg shadow-sm transition-colors cursor-pointer w-10 h-10" title="Share on LinkedIn">
+            <!-- LinkedIn Share Link -->
+            <a href="#" onclick="this.href='https://linkedin.com' + encodeURIComponent(window.location.origin + window.location.pathname)" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center p-3 bg-[#0077B5] hover:bg-[#005E8F] text-white rounded-lg shadow-sm transition-colors cursor-pointer w-10 h-10" title="Share on LinkedIn">
               <svg class="w-4 h-4 fill-current pointer-events-none" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-            </button>
+            </a>
             
-            <!-- WhatsApp Share Trigger -->
-            <button data-platform="whatsapp" class="flex items-center justify-center p-3 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-lg shadow-sm transition-colors cursor-pointer w-10 h-10" title="Share on WhatsApp">
-              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.754-1.458L0 24zm6.59-4.846c1.66.986 3.284 1.489 4.936 1.49 5.351 0 9.701-4.337 9.704-9.677.001-2.586-1.001-5.019-2.823-6.845-1.821-1.827-4.246-2.831-6.834-2.832-5.356 0-9.707 4.338-9.71 9.68-.001 1.905.508 3.764 1.474 5.437l-.965 3.522 3.618-.951z"/></svg>
-            </button>
+            <!-- WhatsApp Share Link -->
+            <a href="#" onclick="this.href='https://whatsapp.com' + encodeURIComponent(document.title + ' - ' + window.location.origin + window.location.pathname)" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center p-3 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-lg shadow-sm transition-colors cursor-pointer w-10 h-10" title="Share on WhatsApp">
+              <svg class="w-4 h-4 fill-current pointer-events-none" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.754-1.458L0 24zm6.59-4.846c1.66.986 3.284 1.489 4.936 1.49 5.351 0 9.701-4.337 9.704-9.677.001-2.586-1.001-5.019-2.823-6.845-1.821-1.827-4.246-2.831-6.834-2.832-5.356 0-9.707 4.338-9.71 9.68-.001 1.905.508 3.764 1.474 5.437l-.965 3.522 3.618-.951z"/></svg>
+            </a>
             
-            <!-- Facebook Share Trigger -->
-            <button data-platform="facebook" class="flex items-center justify-center p-3 bg-[#1877F2] hover:bg-[#0F56B3] text-white rounded-lg shadow-sm transition-colors cursor-pointer w-10 h-10" title="Share on Facebook">
-              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-            </button>
+            <!-- Facebook Share Link -->
+            <a href="#" onclick="this.href='https://facebook.com' + encodeURIComponent(window.location.origin + window.location.pathname)" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center p-3 bg-[#1877F2] hover:bg-[#0F56B3] text-white rounded-lg shadow-sm transition-colors cursor-pointer w-10 h-10" title="Share on Facebook">
+              <svg class="w-4 h-4 fill-current pointer-events-none" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
             
-            <!-- Reddit Share Trigger -->
-            <button data-platform="reddit" class="flex items-center justify-center p-3 bg-[#FF4500] hover:bg-[#CC3A00] text-white rounded-lg shadow-sm transition-colors cursor-pointer w-10 h-10" title="Share on Reddit">
-              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 11.5c0-1.65-1.35-3-3.3-3-.96 0-1.86.48-2.42 1.24-1.64-1-3.85-1.64-6.29-1.78l1.41-4.43 3.86.88c.05 1.02.89 1.84 1.94 1.84 1.05 0 1.9-.85 1.9-1.9s-.85-1.9-1.9-1.9c-.93 0-1.7.67-1.87 1.56l-4.17-.95c-.24-.06-.48.1-.55.34l-1.5 4.7c-2.51.11-4.79.76-6.49 1.77-.56-.75-1.46-1.22-2.42-1.22-1.65 0-3 1.35-3 3 0 1.11.6 2.07 1.51 2.59-.06.3-.09.61-.09.91 0 4.14 5.37 7.5 12 7.5s12-3.36 12-7.5c0-.3-.03-.61-.1-.91.92-.52 1.52-1.48 1.52-2.59zM5.5 14c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm12.5 4.5c-2.11 2.11-6.11 2.11-8.22 0-.2-.2-.2-.51 0-.71.2-.2.51-.2.71 0 1.72 1.74 5.09 1.74 6.81 0 .2-.2.51-.2.71 0 .2.2.2.51 0 .71zM17 14c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
-            </button>
+            <!-- Reddit Share Link -->
+            <a href="#" onclick="this.href='https://reddit.com' + encodeURIComponent(window.location.origin + window.location.pathname) + '&title=' + encodeURIComponent(document.title)" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center p-3 bg-[#FF4500] hover:bg-[#CC3A00] text-white rounded-lg shadow-sm transition-colors cursor-pointer w-10 h-10" title="Share on Reddit">
+              <svg class="w-4 h-4 fill-current pointer-events-none" viewBox="0 0 24 24"><path d="M24 11.5c0-1.65-1.35-3-3.3-3-.96 0-1.86.48-2.42 1.24-1.64-1-3.85-1.64-6.29-1.78l1.41-4.43 3.86.88c.05 1.02.89 1.84 1.94 1.84 1.05 0 1.9-.85 1.9-1.9s-.85-1.9-1.9-1.9c-.93 0-1.7.67-1.87 1.56l-4.17-.95c-.24-.06-.48.1-.55.34l-1.5 4.7c-2.51.11-4.79.76-6.49 1.77-.56-.75-1.46-1.22-2.42-1.22-1.65 0-3 1.35-3 3 0 1.11.6 2.07 1.51 2.59-.06.3-.09.61-.09.91 0 4.14 5.37 7.5 12 7.5s12-3.36 12-7.5c0-.3-.03-.61-.1-.91.92-.52 1.52-1.48 1.52-2.59zM5.5 14c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm12.5 4.5c-2.11 2.11-6.11 2.11-8.22 0-.2-.2-.2-.51 0-.71.2-.2.51-.2.71 0 1.72 1.74 5.09 1.74 6.81 0 .2-.2.51-.2.71 0 .2.2.2.51 0 .71zM17 14c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+            </a>
             
-            <!-- Pinterest Share Trigger -->
-            <button data-platform="pinterest" class="flex items-center justify-center p-3 bg-[#BD081C] hover:bg-[#AD0616] text-white rounded-lg shadow-sm transition-colors cursor-pointer w-10 h-10" title="Share on Pinterest">
-              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.017 0C5.396 0 0 5.396 0 12.017c0 5.078 3.158 9.387 7.633 11.074-.105-.945-.199-2.394.041-3.424.218-1.012 1.407-5.945 1.407-5.945s-.359-.72-.359-1.781c0-1.663.618-2.906 1.815-2.906 1.023 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.532 2.164 1.704 2.164 2.044 0 3.62-2.586 3.62-5.637 0-3.308-2.364-5.617-6.006-5.617-4.094 0-6.613 3.055-6.613 6.425 0 1.233.473 2.559 1.063 3.277.117.141.134.264.099.409-.108.448-.351 1.425-.398 1.614-.061.254-.207.308-.474.192-1.761-1.144-2.541-4.215-2.541-6.757 0-4.931 4.135-9.626 10.963-9.626 5.756 0 9.544 4.148 9.544 8.784 0 5.926-3.32 10.372-8.243 10.372-1.613 0-3.125-.873-3.645-1.859 0 0-.796 3.165-.968 3.822-.288 1.106-1.07 2.204-1.579 2.978 1.121.341 2.305.526 3.535.526 6.62 0 12.016-5.396 12.016-12.017C24.032 5.396 18.637 0 12.017 0z"/></svg>
-            </button>
+            <!-- Pinterest Share Link -->
+            <a href="#" onclick="this.href='https://pinterest.com' + encodeURIComponent(window.location.origin + window.location.pathname) + '&description=' + encodeURIComponent(document.title)" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center p-3 bg-[#BD081C] hover:bg-[#AD0616] text-white rounded-lg shadow-sm transition-colors cursor-pointer w-10 h-10" title="Share on Pinterest">
+              <svg class="w-4 h-4 fill-current pointer-events-none" viewBox="0 0 24 24"><path d="M12.017 0C5.396 0 0 5.396 0 12.017c0 5.078 3.158 9.387 7.633 11.074-.105-.945-.199-2.394.041-3.424.218-1.012 1.407-5.945 1.407-5.945s-.359-.72-.359-1.781c0-1.663.618-2.906 1.815-2.906 1.023 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.532 2.164 1.704 2.164 2.044 0 3.62-2.586 3.62-5.637 0-3.308-2.364-5.617-6.006-5.617-4.094 0-6.613 3.055-6.613 6.425 0 1.233.473 2.559 1.063 3.277.117.141.134.264.099.409-.108.448-.351 1.425-.398 1.614-.061.254-.207.308-.474.192-1.761-1.144-2.541-4.215-2.541-6.757 0-4.931 4.135-9.626 10.963-9.626 5.756 0 9.544 4.148 9.544 8.784 0 5.926-3.32 10.372-8.243 10.372-1.613 0-3.125-.873-3.645-1.859 0 0-.796 3.165-.968 3.822-.288 1.106-1.07 2.204-1.579 2.978 1.121.341 2.305.526 3.535.526 6.62 0 12.016-5.396 12.016-12.017C24.032 5.396 18.637 0 12.017 0z"/></svg>
+            </a>
 
-            <!-- Copy Link Button Layout Slot -->
+            <!-- Copy Link Button Module -->
             <button id="inline-copy-btn" class="flex items-center justify-center gap-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-[11px] uppercase tracking-wider px-3.5 py-2.5 rounded-lg shadow-sm transition-colors cursor-pointer border border-slate-200 dark:border-slate-700 sm:ml-auto">
               <svg xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.744c0-1.11.807-2.057 1.907-2.185a48.507 48.507 0 0 1 1.927-.184" /></svg>
               <span id="inline-copy-text">Copy Link</span>
@@ -152,75 +151,30 @@ const recommendedPosts = targetCategories.map(catId => {
           </div>
         </div>
 
-        <!-- PRODUCTION-READY RUNTIME ENGINE: Self-calculates across all custom domains -->
+        <!-- STABLE CLIPBOARD BACKBONE ENGINE -->
         <script is:inline>
           (function() {
-            function configurePublishSharingHub() {
-              const container = document.getElementById('portal-share-container');
-              if (!container) return;
+            function initClipboardUtility() {
+              const copyButton = document.getElementById('inline-copy-btn');
+              const copyLabel = document.getElementById('inline-copy-text');
+              if (!copyButton || !copyLabel) return;
 
-              // Dynamically captures whatever live address the page is currently on
-              const dynamicOrigin = window.location.origin;
-              const postId = container.getAttribute('data-post-id');
-              const runtimeCleanUrl = dynamicOrigin + '/posts/' + postId;
-              const runtimeTitle = document.title;
-
-              // Single event delegation mapping layer — completely immune to popup blocker traps
-              container.onclick = (event) => {
-                const targetButton = event.target.closest('button[data-platform]');
-                if (!targetButton) return;
-
-                const selectedPlatform = targetButton.getAttribute('data-platform');
-                let requestEndpoint = '';
-
-                switch (selectedPlatform) {
-                  case 'x':
-                    requestEndpoint = 'https://x.com' + encodeURIComponent(runtimeCleanUrl) + '&text=' + encodeURIComponent(runtimeTitle);
-                    break;
-                  case 'linkedin':
-                    requestEndpoint = 'https://linkedin.com' + encodeURIComponent(runtimeCleanUrl);
-                    break;
-                  case 'whatsapp':
-                    requestEndpoint = 'https://whatsapp.com' + encodeURIComponent(runtimeTitle + ' - ' + runtimeCleanUrl);
-                    break;
-                  case 'facebook':
-                    requestEndpoint = 'https://facebook.com' + encodeURIComponent(runtimeCleanUrl);
-                    break;
-                  case 'reddit':
-                    requestEndpoint = 'https://reddit.com' + encodeURIComponent(runtimeCleanUrl) + '&title=' + encodeURIComponent(runtimeTitle);
-                    break;
-                  case 'pinterest':
-                    requestEndpoint = 'https://pinterest.com' + encodeURIComponent(runtimeCleanUrl) + '&description=' + encodeURIComponent(runtimeTitle);
-                    break;
-                }
-
-                if (requestEndpoint) {
-                  window.open(requestEndpoint, '_blank', 'width=600,height=450,noopener,noreferrer');
-                }
+              copyButton.onclick = (e) => {
+                e.preventDefault();
+                const targetUrl = window.location.origin + window.location.pathname;
+                navigator.clipboard.writeText(targetUrl).then(() => {
+                  copyLabel.innerText = 'Copied!';
+                  setTimeout(() => { copyLabel.innerText = 'Copy Link'; }, 2000);
+                }).catch(err => console.error('Clipboard fault', err));
               };
-
-              // Copy Link clipboard functionality module
-              const copyActionBtn = document.getElementById('inline-copy-btn');
-              const copyLabelNode = document.getElementById('inline-copy-text');
-              if (copyActionBtn && copyLabelNode) {
-                copyActionBtn.onclick = (e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  navigator.clipboard.writeText(runtimeCleanUrl).then(() => {
-                    copyLabelNode.innerText = 'Copied!';
-                    setTimeout(() => { copyLabelNode.innerText = 'Copy Link'; }, 2000);
-                  }).catch(err => console.error('Clipboard fault:', err));
-                };
-              }
             }
 
-            // Safely binds triggers across default page loads and SPA dynamic swap transitions
             if (document.readyState === 'loading') {
-              document.addEventListener('DOMContentLoaded', configurePublishSharingHub);
+              document.addEventListener('DOMContentLoaded', initClipboardUtility);
             } else {
-              configurePublishSharingHub();
+              initClipboardUtility();
             }
-            document.addEventListener('astro:after-swap', configurePublishSharingHub);
+            document.addEventListener('astro:after-swap', initClipboardUtility);
           })();
         </script>
       </article>
