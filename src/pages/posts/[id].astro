@@ -115,32 +115,32 @@ const recommendedPosts = targetCategories.map(catId => {
           
           <div class="flex flex-wrap items-center gap-2">
             <!-- X.com Link -->
-            <button onclick="window.open('https://x.com' + encodeURIComponent(window.location.href) + '&text=' + encodeURIComponent(document.title), '_blank')" class="flex items-center justify-center p-3 bg-slate-900 hover:bg-black text-white rounded-lg shadow-sm transition-colors border border-slate-800 cursor-pointer w-10 h-10" title="Share on X">
+            <button onclick="window.open('https://x.com' + encodeURIComponent(window.location.origin + window.location.pathname) + '&text=' + encodeURIComponent(document.title), '_blank')" class="flex items-center justify-center p-3 bg-slate-900 hover:bg-black text-white rounded-lg shadow-sm transition-colors border border-slate-800 cursor-pointer w-10 h-10" title="Share on X">
               <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
             </button>
             
             <!-- LinkedIn Link -->
-            <button onclick="window.open('https://linkedin.com' + encodeURIComponent(window.location.href), '_blank')" class="flex items-center justify-center p-3 bg-[#0077B5] hover:bg-[#005E8F] text-white rounded-lg shadow-sm transition-colors cursor-pointer w-10 h-10" title="Share on LinkedIn">
+            <button onclick="window.open('https://linkedin.com' + encodeURIComponent(window.location.origin + window.location.pathname), '_blank')" class="flex items-center justify-center p-3 bg-[#0077B5] hover:bg-[#005E8F] text-white rounded-lg shadow-sm transition-colors cursor-pointer w-10 h-10" title="Share on LinkedIn">
               <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
             </button>
             
             <!-- WhatsApp Link -->
-            <button onclick="window.open('https://whatsapp.com' + encodeURIComponent(document.title + ' - ' + window.location.href), '_blank')" class="flex items-center justify-center p-3 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-lg shadow-sm transition-colors cursor-pointer w-10 h-10" title="Share on WhatsApp">
+            <button onclick="window.open('https://whatsapp.com' + encodeURIComponent(document.title + ' - ' + window.location.origin + window.location.pathname), '_blank')" class="flex items-center justify-center p-3 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-lg shadow-sm transition-colors cursor-pointer w-10 h-10" title="Share on WhatsApp">
               <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.754-1.458L0 24zm6.59-4.846c1.66.986 3.284 1.489 4.936 1.49 5.351 0 9.701-4.337 9.704-9.677.001-2.586-1.001-5.019-2.823-6.845-1.821-1.827-4.246-2.831-6.834-2.832-5.356 0-9.707 4.338-9.71 9.68-.001 1.905.508 3.764 1.474 5.437l-.965 3.522 3.618-.951z"/></svg>
             </button>
             
             <!-- Facebook Link -->
-            <button onclick="window.open('https://facebook.com' + encodeURIComponent(window.location.href), '_blank')" class="flex items-center justify-center p-3 bg-[#1877F2] hover:bg-[#0F56B3] text-white rounded-lg shadow-sm transition-colors cursor-pointer w-10 h-10" title="Share on Facebook">
+            <button onclick="window.open('https://facebook.com' + encodeURIComponent(window.location.origin + window.location.pathname), '_blank')" class="flex items-center justify-center p-3 bg-[#1877F2] hover:bg-[#0F56B3] text-white rounded-lg shadow-sm transition-colors cursor-pointer w-10 h-10" title="Share on Facebook">
               <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
             </button>
             
             <!-- Reddit Link -->
-            <button onclick="window.open('https://reddit.com' + encodeURIComponent(window.location.href) + '&title=' + encodeURIComponent(document.title), '_blank')" class="flex items-center justify-center p-3 bg-[#FF4500] hover:bg-[#CC3A00] text-white rounded-lg shadow-sm transition-colors cursor-pointer w-10 h-10" title="Share on Reddit">
+            <button onclick="window.open('https://reddit.com' + encodeURIComponent(window.location.origin + window.location.pathname) + '&title=' + encodeURIComponent(document.title), '_blank')" class="flex items-center justify-center p-3 bg-[#FF4500] hover:bg-[#CC3A00] text-white rounded-lg shadow-sm transition-colors cursor-pointer w-10 h-10" title="Share on Reddit">
               <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 11.5c0-1.65-1.35-3-3.3-3-.96 0-1.86.48-2.42 1.24-1.64-1-3.85-1.64-6.29-1.78l1.41-4.43 3.86.88c.05 1.02.89 1.84 1.94 1.84 1.05 0 1.9-.85 1.9-1.9s-.85-1.9-1.9-1.9c-.93 0-1.7.67-1.87 1.56l-4.17-.95c-.24-.06-.48.1-.55.34l-1.5 4.7c-2.51.11-4.79.76-6.49 1.77-.56-.75-1.46-1.22-2.42-1.22-1.65 0-3 1.35-3 3 0 1.11.6 2.07 1.51 2.59-.06.3-.09.61-.09.91 0 4.14 5.37 7.5 12 7.5s12-3.36 12-7.5c0-.3-.03-.61-.1-.91.92-.52 1.52-1.48 1.52-2.59zM5.5 14c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm12.5 4.5c-2.11 2.11-6.11 2.11-8.22 0-.2-.2-.2-.51 0-.71.2-.2.51-.2.71 0 1.72 1.74 5.09 1.74 6.81 0 .2-.2.51-.2.71 0 .2.2.2.51 0 .71zM17 14c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
             </button>
             
             <!-- Pinterest Link -->
-            <button onclick="window.open('https://pinterest.com' + encodeURIComponent(window.location.href) + '&description=' + encodeURIComponent(document.title), '_blank')" class="flex items-center justify-center p-3 bg-[#BD081C] hover:bg-[#AD0616] text-white rounded-lg shadow-sm transition-colors cursor-pointer w-10 h-10" title="Share on Pinterest">
+            <button onclick="window.open('https://pinterest.com' + encodeURIComponent(window.location.origin + window.location.pathname) + '&description=' + encodeURIComponent(document.title), '_blank')" class="flex items-center justify-center p-3 bg-[#BD081C] hover:bg-[#AD0616] text-white rounded-lg shadow-sm transition-colors cursor-pointer w-10 h-10" title="Share on Pinterest">
               <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.017 0C5.396 0 0 5.396 0 12.017c0 5.078 3.158 9.387 7.633 11.074-.105-.945-.199-2.394.041-3.424.218-1.012 1.407-5.945 1.407-5.945s-.359-.72-.359-1.781c0-1.663.618-2.906 1.815-2.906 1.023 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.532 2.164 1.704 2.164 2.044 0 3.62-2.586 3.62-5.637 0-3.308-2.364-5.617-6.006-5.617-4.094 0-6.613 3.055-6.613 6.425 0 1.233.473 2.559 1.063 3.277.117.141.134.264.099.409-.108.448-.351 1.425-.398 1.614-.061.254-.207.308-.474.192-1.761-1.144-2.541-4.215-2.541-6.757 0-4.931 4.135-9.626 10.963-9.626 5.756 0 9.544 4.148 9.544 8.784 0 5.926-3.32 10.372-8.243 10.372-1.613 0-3.125-.873-3.645-1.859 0 0-.796 3.165-.968 3.822-.288 1.106-1.07 2.204-1.579 2.978 1.121.341 2.305.526 3.535.526 6.62 0 12.016-5.396 12.016-12.017C24.032 5.396 18.637 0 12.017 0z"/></svg>
             </button>
 
@@ -159,7 +159,10 @@ const recommendedPosts = targetCategories.map(catId => {
             if (copyBtn && copyText) {
               copyBtn.addEventListener('click', async () => {
                 try {
-                  await navigator.clipboard.writeText(window.location.href);
+                  // Replaced window.location.href with hash-stripping combo layout
+                  const cleanPostUrl = window.location.origin + window.location.pathname;
+                  await navigator.clipboard.writeText(cleanPostUrl);
+                  
                   copyText.innerText = "Copied!";
                   setTimeout(() => { copyText.innerText = "Copy Link"; }, 2000);
                 } catch (err) {
