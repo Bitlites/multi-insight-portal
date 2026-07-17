@@ -8,8 +8,7 @@ import {
   LinkedInShareButton, 
   WhatsAppShareButton, 
   FacebookShareButton, 
-  RedditShareButton,
-  PinterestShareButton
+  RedditShareButton
 } from 'astro-social-share';
 
 export async function getStaticPaths() {
@@ -139,7 +138,6 @@ const recommendedPosts = targetCategories.map(catId => {
               <WhatsAppShareButton />
               <FacebookShareButton />
               <RedditShareButton />
-              <PinterestShareButton />
             </div>
 
             <!-- UNIFIED COPY LINK MODULE BUTTON -->
