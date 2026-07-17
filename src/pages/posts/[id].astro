@@ -25,12 +25,12 @@ const recommendedPosts = targetCategories.map(catId => {
   return sortedPosts.find(p => p.data.category.toLowerCase() === catId);
 }).filter(Boolean);
 
-// DYNAMIC FIX: Automatically detects your live domain (localhost, preview, or custom production domain)
-const siteUrl = Astro.site ? Astro.site.href.replace(/\/$/, '') : 'https://pages.dev';
-const absolutePostUrl = `${siteUrl}/posts/${post.id}`;
+// DYNAMIC ZERO-HARDCODING RESOLVER: Detects localhost, deployment branch previews, or custom production domains
+const requestUrl = Astro.url;
+const absolutePostUrl = `${requestUrl.origin}/posts/${post.id}`;
 const articleTitle = `${post.data.title} — Multi-Insight Portal`;
 
-// PRE-ENCODING: Validated absolute platform API endpoint paths
+// PRE-ENCODED ENDPOINTS: Calculated safely using native frontmatter string interpolation vectors
 const xShareUrl = `https://x.com{encodeURIComponent(absolutePostUrl)}&text=${encodeURIComponent(articleTitle)}`;
 const linkedinShareUrl = `https://linkedin.com{encodeURIComponent(absolutePostUrl)}`;
 const whatsappShareUrl = `https://whatsapp.com{encodeURIComponent(articleTitle + ' - ' + absolutePostUrl)}`;
