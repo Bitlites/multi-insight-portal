@@ -33,6 +33,14 @@ const targetCategories = ['current-affairs', 'technology', 'science', 'finance',
 const recommendedPosts = targetCategories.map(catId => {
   return sortedPosts.find(p => p.data.category.toLowerCase() === catId);
 }).filter(Boolean);
+
+// AUTOMATED METADATA LOOKUP: Zero-hardcoding compliant targeting standard paths
+const requestUrl = Astro.url;
+const absolutePostUrl = requestUrl.origin + '/posts/' + post.id;
+const articleTitle = post.data.title + ' — Multi-Insight Portal';
+
+// FIXED DESKTOP WHATSAPP WEB VALUE: Pre-compiled seamlessly on the server layer
+const desktopWhatsAppWebUrl = 'https://web.whatsapp.com' + encodeURIComponent(articleTitle + ' - ' + absolutePostUrl);
 ---
 
 <BaseLayout title={`${post.data.title} — Multi-Insight Portal`}>
@@ -115,7 +123,7 @@ const recommendedPosts = targetCategories.map(catId => {
           <Content />
         </div>
 
-        <!-- STANDARD ENTERPRISE HYBRID SHARING RIBBON -->
+        <!-- COMPACT HYBRID SHARING RIBBON HUB -->
         <div class="border-t border-slate-100 dark:border-slate-800 pt-6 mt-10 space-y-4">
           <h3 class="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-slate-200 font-mono flex items-center gap-1.5">
             📢 Enjoyed this analysis? Share with your network
@@ -123,45 +131,48 @@ const recommendedPosts = targetCategories.map(catId => {
           
           <div class="flex flex-wrap items-center gap-2">
             
-            <!-- MOBILE VIEW CONTAINER (Only visible on screens under tablet size) -->
+            <!-- MOBILE VIEW CONTAINER (Method 1: Native System Share Drawer Interface) -->
             <div class="block md:hidden">
-              <button id="native-system-share-btn" class="flex items-center justify-center gap-2 bg-slate-900 hover:bg-black text-white font-bold text-xs uppercase tracking-wider px-5 py-3 rounded-lg shadow-sm transition-colors cursor-pointer border border-slate-800">
+              <button id="native-system-share-btn" class="flex items-center justify-center gap-2 bg-slate-900 dark:bg-slate-800 hover:bg-black text-white font-bold text-xs uppercase tracking-wider px-5 py-3 rounded-lg shadow-sm transition-colors cursor-pointer border border-slate-800 dark:border-slate-700">
                 <svg xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" /></svg>
                 <span>Share Article</span>
               </button>
             </div>
 
-            <!-- DESKTOP VIEW CONTAINER (Only visible on tablets and desktop monitors) -->
-            <div class="hidden md:flex flex-wrap items-center gap-2 social-share-desktop-override">
-              <TwitterShareButton />
-              <LinkedInShareButton />
-              <WhatsAppShareButton />
-              <FacebookShareButton />
-              <RedditShareButton />
+            <!-- DESKTOP VIEW CONTAINER (Method 2: Clean Package Elements + Dedicated WhatsApp Web Link) -->
+            <div class="hidden md:flex flex-wrap items-center gap-2 custom-social-theme-override">
+              <TwitterShareButton url={absolutePostUrl} title={articleTitle} />
+              <LinkedInShareButton url={absolutePostUrl} title={articleTitle} />
+              
+              <!-- Fixed Desktop WhatsApp Web Anchor Link — Zero-Hardcoded Variable Output -->
+              <WhatsAppShareButton url={desktopWhatsAppWebUrl} title="" />
+
+              <FacebookShareButton url={absolutePostUrl} title={articleTitle} />
+              <RedditShareButton url={absolutePostUrl} title={articleTitle} />
             </div>
 
             <!-- UNIFIED COPY LINK MODULE BUTTON -->
-            <button id="inline-copy-btn" class="flex items-center justify-center gap-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-[11px] uppercase tracking-wider px-3.5 py-3 rounded-lg shadow-sm transition-colors cursor-pointer border border-slate-200 dark:border-slate-700 sm:ml-auto">
+            <button id="inline-copy-btn" class="flex items-center justify-center gap-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-[11px] uppercase tracking-wider px-3.5 py-2.5 rounded-lg shadow-sm transition-colors cursor-pointer border border-slate-200 dark:border-slate-700 sm:ml-auto">
               <svg xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.744c0-1.11.807-2.057 1.907-2.185a48.507 48.507 0 0 1 1.927-.184" /></svg>
               <span id="inline-copy-text">Copy Link</span>
             </button>
           </div>
         </div>
 
-        <!-- LIFECYCLE INITIALIZATION LAYER -->
+        <!-- LIFECYCLE MANAGEMENT LAYER -->
         <script is:inline>
           (function() {
             function runtimeSharingEngine() {
               const currentCleanUrl = window.location.origin + window.location.pathname;
 
-              // 1. MOBILE SYSTEM SHARE ENGINE
+              // 1. MOBILE NATIVE SHARE DRAWER HANDLER
               const mobileShareBtn = document.getElementById('native-system-share-btn');
               if (mobileShareBtn) {
                 mobileShareBtn.onclick = async () => {
                   if (navigator.share) {
                     try {
                       await navigator.share({ title: document.title, url: currentCleanUrl });
-                    } catch (e) { console.log('System share cancelled'); }
+                    } catch (e) { console.log('System drawer closed'); }
                   } else {
                     navigator.clipboard.writeText(currentCleanUrl);
                     alert('Sharing link copied to clipboard!');
@@ -169,7 +180,7 @@ const recommendedPosts = targetCategories.map(catId => {
                 };
               }
 
-              // 2. SECURE STRIPPED CLIPBOARD UTILITY
+              // 2. STABLE CLIPBOARD COPY MECHANICAL HANDLER
               const copyButton = document.getElementById('inline-copy-btn');
               const copyLabel = document.getElementById('inline-copy-text');
               if (copyButton && copyLabel) {
@@ -285,5 +296,43 @@ const recommendedPosts = targetCategories.map(catId => {
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke !important;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
     transition-duration: 150ms !important;
+  }
+  /* Locks absolute desktop dimensions, spacing parameters, and transitions */
+  .custom-social-theme-override a,
+  .custom-social-theme-override button,
+  .custom-social-theme-override div {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 0.5rem !important; /* rounded-lg */
+    width: 2rem !important;           /* standard w-8 scale layout */
+    height: 2rem !important;          /* standard h-8 scale layout */
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important; /* shadow-sm */
+    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border: none !important;
+    outline: none !important;
+  }
+
+  /* PREMIUM DARK-THEME OVERRIDES: Forces clean light-grey backgrounds in Dark Mode */
+  .dark .custom-social-theme-override a,
+  .dark .custom-social-theme-override button {
+    background-color: #334155 !important; /* text contrast slate-700 background */
+  }
+  .dark .custom-social-theme-override svg {
+    fill: #f8fafc !important;             /* crisp text slate-50 color value */
+    color: #f8fafc !important;
+  }
+
+  /* Specific color themes to protect official brand colors in Light Mode */
+  .custom-social-theme-override a[href*="x.com"], .custom-social-theme-override button[aria-label*="X"] { background-color: #0f1419 !important; }
+  .custom-social-theme-override a[href*="linkedin.com"] { background-color: #0077b5 !important; }
+  .custom-social-theme-override a[href*="facebook.com"] { background-color: #1877f2 !important; }
+  .custom-social-theme-override a[href*="reddit.com"] { background-color: #ff4500 !important; }
+  .custom-social-theme-override a[href*="whatsapp.com"], .custom-social-theme-override a[href*="://whatsapp.com"] { background-color: #25d366 !important; }
+
+  /* Refines default package graphic bounding dimensions to look clean */
+  .custom-social-theme-override svg {
+    width: 0.95rem !important;
+    height: 0.95rem !important;
   }
 </style>
