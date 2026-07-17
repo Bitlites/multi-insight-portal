@@ -2,6 +2,16 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
+// Import the official compiled sharing components
+import { 
+  TwitterShareButton, 
+  LinkedInShareButton, 
+  WhatsAppShareButton, 
+  FacebookShareButton, 
+  RedditShareButton,
+  PinterestShareButton
+} from 'astro-social-share';
+
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
   return posts.map(post => ({
@@ -24,19 +34,6 @@ const targetCategories = ['current-affairs', 'technology', 'science', 'finance',
 const recommendedPosts = targetCategories.map(catId => {
   return sortedPosts.find(p => p.data.category.toLowerCase() === catId);
 }).filter(Boolean);
-
-// DYNAMIC ZERO-HARDCODING RESOLVER: Detects localhost, deployment branch previews, or custom production domains
-const requestUrl = Astro.url;
-const absolutePostUrl = `${requestUrl.origin}/posts/${post.id}`;
-const articleTitle = `${post.data.title} — Multi-Insight Portal`;
-
-// PRE-ENCODED ENDPOINTS: Calculated safely using native frontmatter string interpolation vectors
-const xShareUrl = `https://x.com{encodeURIComponent(absolutePostUrl)}&text=${encodeURIComponent(articleTitle)}`;
-const linkedinShareUrl = `https://linkedin.com{encodeURIComponent(absolutePostUrl)}`;
-const whatsappShareUrl = `https://whatsapp.com{encodeURIComponent(articleTitle + ' - ' + absolutePostUrl)}`;
-const facebookShareUrl = `https://facebook.com{encodeURIComponent(absolutePostUrl)}`;
-const redditShareUrl = `https://reddit.com{encodeURIComponent(absolutePostUrl)}&title=${encodeURIComponent(articleTitle)}`;
-const pinterestShareUrl = `https://pinterest.com{encodeURIComponent(absolutePostUrl)}&description=${encodeURIComponent(articleTitle)}`;
 ---
 
 <BaseLayout title={`${post.data.title} — Multi-Insight Portal`}>
@@ -119,20 +116,33 @@ const pinterestShareUrl = `https://pinterest.com{encodeURIComponent(absolutePost
           <Content />
         </div>
 
-        <!-- COMPACT NATIVE SYSTEM SHARING HUB -->
+        <!-- STANDARD ENTERPRISE HYBRID SHARING RIBBON -->
         <div class="border-t border-slate-100 dark:border-slate-800 pt-6 mt-10 space-y-4">
           <h3 class="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-slate-200 font-mono flex items-center gap-1.5">
             📢 Enjoyed this analysis? Share with your network
           </h3>
           
           <div class="flex flex-wrap items-center gap-2">
-            <!-- Unified System Share Trigger -->
-            <button id="native-system-share-btn" class="flex items-center justify-center gap-2 bg-slate-900 hover:bg-black text-white font-bold text-xs uppercase tracking-wider px-5 py-3 rounded-lg shadow-sm transition-colors cursor-pointer border border-slate-800">
-              <svg xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" /></svg>
-              <span>Share Article</span>
-            </button>
+            
+            <!-- MOBILE VIEW CONTAINER (Only visible on screens under tablet size) -->
+            <div class="block md:hidden">
+              <button id="native-system-share-btn" class="flex items-center justify-center gap-2 bg-slate-900 hover:bg-black text-white font-bold text-xs uppercase tracking-wider px-5 py-3 rounded-lg shadow-sm transition-colors cursor-pointer border border-slate-800">
+                <svg xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" /></svg>
+                <span>Share Article</span>
+              </button>
+            </div>
 
-            <!-- Copy Link Button Fallback -->
+            <!-- DESKTOP VIEW CONTAINER (Only visible on tablets and desktop monitors) -->
+            <div class="hidden md:flex flex-wrap items-center gap-2 social-share-desktop-override">
+              <TwitterShareButton />
+              <LinkedInShareButton />
+              <WhatsAppShareButton />
+              <FacebookShareButton />
+              <RedditShareButton />
+              <PinterestShareButton />
+            </div>
+
+            <!-- UNIFIED COPY LINK MODULE BUTTON -->
             <button id="inline-copy-btn" class="flex items-center justify-center gap-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-[11px] uppercase tracking-wider px-3.5 py-3 rounded-lg shadow-sm transition-colors cursor-pointer border border-slate-200 dark:border-slate-700 sm:ml-auto">
               <svg xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.744c0-1.11.807-2.057 1.907-2.185a48.507 48.507 0 0 1 1.927-.184" /></svg>
               <span id="inline-copy-text">Copy Link</span>
@@ -140,54 +150,48 @@ const pinterestShareUrl = `https://pinterest.com{encodeURIComponent(absolutePost
           </div>
         </div>
 
+        <!-- LIFECYCLE INITIALIZATION LAYER -->
         <script is:inline>
           (function() {
-            function initSharingUtilities() {
-              const shareBtn = document.getElementById('native-system-share-btn');
-              const copyBtn = document.getElementById('inline-copy-btn');
-              const copyText = document.getElementById('inline-copy-text');
-              
-              const cleanUrl = window.location.origin + window.location.pathname;
-              const pageTitle = document.title;
+            function runtimeSharingEngine() {
+              const currentCleanUrl = window.location.origin + window.location.pathname;
 
-              // Native System Sharing Menu Hook
-              if (shareBtn) {
-                shareBtn.onclick = async () => {
+              // 1. MOBILE SYSTEM SHARE ENGINE
+              const mobileShareBtn = document.getElementById('native-system-share-btn');
+              if (mobileShareBtn) {
+                mobileShareBtn.onclick = async () => {
                   if (navigator.share) {
                     try {
-                      await navigator.share({
-                        title: pageTitle,
-                        url: cleanUrl
-                      });
-                    } catch (err) {
-                      console.log('System share dismissed or closed');
-                    }
+                      await navigator.share({ title: document.title, url: currentCleanUrl });
+                    } catch (e) { console.log('System share cancelled'); }
                   } else {
-                    // Fallback to clipboard if browser doesn't support Web Share API
-                    navigator.clipboard.writeText(cleanUrl);
+                    navigator.clipboard.writeText(currentCleanUrl);
                     alert('Sharing link copied to clipboard!');
                   }
                 };
               }
 
-              // Standard Clipboard Copy Hook
-              if (copyBtn && copyText) {
-                copyBtn.onclick = (e) => {
+              // 2. SECURE STRIPPED CLIPBOARD UTILITY
+              const copyButton = document.getElementById('inline-copy-btn');
+              const copyLabel = document.getElementById('inline-copy-text');
+              if (copyButton && copyLabel) {
+                copyButton.onclick = (e) => {
                   e.preventDefault();
-                  navigator.clipboard.writeText(cleanUrl).then(() => {
-                    copyText.innerText = "Copied!";
-                    setTimeout(() => { copyText.innerText = "Copy Link"; }, 2000);
+                  navigator.clipboard.writeText(currentCleanUrl).then(() => {
+                    copyLabel.innerText = 'Copied!';
+                    setTimeout(() => { copyLabel.innerText = 'Copy Link'; }, 2000);
                   }).catch(err => console.error(err));
                 };
               }
             }
 
+            // Sync lifecycle execution engines
             if (document.readyState === 'loading') {
-              document.addEventListener('DOMContentLoaded', initSharingUtilities);
+              document.addEventListener('DOMContentLoaded', runtimeSharingEngine);
             } else {
-              initSharingUtilities();
+              runtimeSharingEngine();
             }
-            document.addEventListener('astro:after-swap', initSharingUtilities);
+            document.addEventListener('astro:after-swap', runtimeSharingEngine);
           })();
         </script>
       </article>
@@ -270,5 +274,18 @@ const pinterestShareUrl = `https://pinterest.com{encodeURIComponent(absolutePost
   }
   .prose ul li, .prose ol li {
     margin-bottom: 0.75rem !important;
+  }
+  /* Enforces cohesive grid dimensions on imported package components */
+  .social-share-desktop-override a {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 0.5rem !important; /* matches rounded-lg */
+    width: 2.5rem !important;        /* matches w-10 */
+    height: 2.5rem !important;       /* matches h-10 */
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important; /* matches shadow-sm */
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke !important;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition-duration: 150ms !important;
   }
 </style>
