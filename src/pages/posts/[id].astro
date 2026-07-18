@@ -130,16 +130,16 @@ const desktopWhatsAppWebUrl = 'https://api.whatsapp.com/send/?text=' + encodeURI
           
           <div class="flex flex-wrap items-center gap-2">
             
-            <!-- MOBILE VIEW CONTAINER (Method 1: Native System Share Drawer Interface) -->
-            <div class="block md:hidden">
+            <!-- MOBILE & TABLET VIEW CONTAINER (Method 1: Native System Share Drawer Active up to 1024px) -->
+            <div class="block lg:hidden">
               <button id="native-system-share-btn" class="flex items-center justify-center gap-2 bg-slate-900 dark:bg-slate-800 hover:bg-black text-white font-bold text-xs uppercase tracking-wider px-5 py-3 rounded-lg shadow-sm transition-colors cursor-pointer border border-slate-800 dark:border-slate-700">
                 <svg xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" /></svg>
                 <span>Share Article</span>
               </button>
             </div>
 
-            <!-- DESKTOP VIEW CONTAINER (Method 2: Clean Package Elements + Dedicated WhatsApp Web Link) -->
-            <div class="hidden md:flex flex-wrap items-center gap-2 custom-social-theme-override">
+            <!-- DESKTOP & LAPTOP VIEW CONTAINER (Method 2: Displays only on viewports wider than 1024px) -->
+            <div class="hidden lg:flex flex-wrap items-center gap-2 custom-social-theme-override">
               <TwitterShareButton url={absolutePostUrl} title={articleTitle} />
               <LinkedInShareButton url={absolutePostUrl} title={articleTitle} />
               
