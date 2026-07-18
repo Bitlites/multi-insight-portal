@@ -2,7 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-// Import the official compiled sharing components
+// Import the official compiled components for standard networks only
 import { 
   TwitterShareButton, 
   LinkedInShareButton, 
@@ -38,8 +38,8 @@ const requestUrl = Astro.url;
 const absolutePostUrl = requestUrl.origin + '/posts/' + post.id;
 const articleTitle = post.data.title + ' — Multi-Insight Portal';
 
-// FIXED PRODUCTION STRING: Strictly points to web.whatsapp.com with proper path query tokens
-const desktopWhatsAppWebUrl = 'https://whatsapp.com' + encodeURIComponent(articleTitle + ' - ' + absolutePostUrl);
+// FIXED Geneic API ROUTE: Forces desktop web layouts using formal URL queries
+const desktopWhatsAppWebUrl = 'https://api.whatsapp.com/send/?text=' + encodeURIComponent(articleTitle + ' - ' + absolutePostUrl) + '&type=custom_url&app_absent=0';
 ---
 
 <BaseLayout title={`${post.data.title} — Multi-Insight Portal`}>
@@ -108,7 +108,7 @@ const desktopWhatsAppWebUrl = 'https://whatsapp.com' + encodeURIComponent(articl
           [ GOOGLE ADSENSE — MID-POST INLINE AD CONTROLLER ]
         </div>
 
-                <!-- MAIN BODY RICH TEXT CONTENT LAYER -->
+        <!-- MAIN BODY RICH TEXT CONTENT LAYER -->
         <div class="prose prose-slate dark:prose-invert max-w-none 
           prose-headings:font-['Cabinet_Grotesk'] prose-headings:font-black prose-headings:tracking-tight prose-headings:text-slate-900 dark:prose-headings:text-white
           prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:border-b prose-h2:border-slate-100 dark:prose-h2:border-slate-800 prose-h2:pb-2
@@ -272,6 +272,7 @@ const desktopWhatsAppWebUrl = 'https://whatsapp.com' + encodeURIComponent(articl
     scroll-behavior: smooth;
     scroll-padding-top: 100px;
   }
+  
   /* System-forced paragraph override rules to lock spacing bounds */
   .prose p {
     margin-bottom: 1.5rem !important;
@@ -285,6 +286,7 @@ const desktopWhatsAppWebUrl = 'https://whatsapp.com' + encodeURIComponent(articl
   .prose ul li, .prose ol li {
     margin-bottom: 0.75rem !important;
   }
+  
   /* Enforces cohesive grid dimensions on imported package components */
   .social-share-desktop-override a {
     display: flex !important;
@@ -298,44 +300,7 @@ const desktopWhatsAppWebUrl = 'https://whatsapp.com' + encodeURIComponent(articl
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
     transition-duration: 150ms !important;
   }
-  /* Locks absolute desktop dimensions, spacing parameters, and transitions */
-  .custom-social-theme-override a,
-  .custom-social-theme-override button,
-  .custom-social-theme-override div {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    border-radius: 0.5rem !important; /* rounded-lg */
-    width: 2rem !important;           /* standard w-8 scale layout */
-    height: 2rem !important;          /* standard h-8 scale layout */
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important; /* shadow-sm */
-    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1) !important;
-    border: none !important;
-    outline: none !important;
-  }
-
-  /* PREMIUM DARK-THEME OVERRIDES: Forces clean light-grey backgrounds in Dark Mode */
-  .dark .custom-social-theme-override a,
-  .dark .custom-social-theme-override button {
-    background-color: #334155 !important; /* text contrast slate-700 background */
-  }
-  .dark .custom-social-theme-override svg {
-    fill: #f8fafc !important;             /* crisp text slate-50 color value */
-    color: #f8fafc !important;
-  }
-
-  /* Specific color themes to protect official brand colors in Light Mode */
-  .custom-social-theme-override a[href*="x.com"], .custom-social-theme-override button[aria-label*="X"] { background-color: #0f1419 !important; }
-  .custom-social-theme-override a[href*="linkedin.com"] { background-color: #0077b5 !important; }
-  .custom-social-theme-override a[href*="facebook.com"] { background-color: #1877f2 !important; }
-  .custom-social-theme-override a[href*="reddit.com"] { background-color: #ff4500 !important; }
-  .custom-social-theme-override a[href*="whatsapp.com"], .custom-social-theme-override a[href*="://whatsapp.com"] { background-color: #25d366 !important; }
-
-  /* Refines default package graphic bounding dimensions to look clean */
-  .custom-social-theme-override svg {
-    width: 0.95rem !important;
-    height: 0.95rem !important;
-  }
+  
   /* Locks absolute desktop dimensions, spacing parameters, and transitions */
   .custom-social-theme-override a,
   .custom-social-theme-override button,
@@ -378,7 +343,7 @@ const desktopWhatsAppWebUrl = 'https://whatsapp.com' + encodeURIComponent(articl
   .custom-social-theme-override a[href*="linkedin.com"] { background-color: #0077b5 !important; }
   .custom-social-theme-override a[href*="facebook.com"] { background-color: #1877f2 !important; }
   .custom-social-theme-override a[href*="reddit.com"] { background-color: #ff4500 !important; }
-  .custom-social-theme-override a[href*="web.whatsapp.com"] { background-color: #25d366 !important; }
+  .custom-social-theme-override a[href*="whatsapp.com"], .custom-social-theme-override a[href*="api.whatsapp.com"] { background-color: #25d366 !important; }
 
   /* Refines default package graphic bounding dimensions to look clean */
   .custom-social-theme-override svg {
