@@ -19,20 +19,19 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content, headings } = await render(post);
 
-// ==========================================
-// AD INJECTION LOGIC START
-// ==========================================
+// 1. INDUSTRY STANDARD: Render the component layout and access the raw compiled html string directly
+const renderResult = await render(post);
+const { Content, headings } = renderResult;
 
-// 1. Convert the static markdown content into a workable HTML string pattern
-const rawContentHtml = await Astro.slots.render('default');
+// Get the raw compiled HTML directly from the Astro render engine pipeline to prevent undefined crashes
+const rawContentHtml = renderResult.html || '';
 
-// 2. AD SPLITTER UTILITY: Injects a lightweight markup placeholder every 3 paragraphs
+// 2. AD SPLITTER UTILITY: Injects a lightweight markup placeholder every 3 paragraphs safely
 function injectMidPostAds(htmlString: string, injectEveryNParagraphs: number = 3) {
+  if (!htmlString) return '';
   const paragraphs = htmlString.split('</p>');
   
-  // Clean placeholder markup layout containing NO script tags inside the loop array
   const googleAdPlaceholder = `
     <div class="adsense-mid-post-placeholder my-10 text-center clear-both">
       <span class="block text-[11px] font-medium tracking-wider text-slate-400 dark:text-slate-500 uppercase mb-2">Advertisement</span>
@@ -58,25 +57,21 @@ function injectMidPostAds(htmlString: string, injectEveryNParagraphs: number = 3
 
 const adInjectedHtml = injectMidPostAds(rawContentHtml, 3);
 
-// ==========================================
-// AD INJECTION LOGIC END
-// ==========================================
-
 // Filter to grab only primary section subheadings (### anchors) for the roadmap mapping
 const tocHeadings = headings.filter(h => h.depth === 3);
 
 const allPosts = await getCollection('posts');
 
-// 1. Sort posts chronologically
+// Sort posts chronologically
 const chronologicalPosts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
-// 2. EXCLUSION FILTER: Ensure the current active post can never appear in any recommendation pool
+// EXCLUSION FILTER: Ensure the current active post can never appear in any recommendation pool
 const filteredPosts = chronologicalPosts.filter(p => p.id !== post.id);
 
-// 3. Trending block uses the filtered list (preventing self-recommendation here too)
+// Trending block uses the filtered list (preventing self-recommendation here too)
 const trendingPosts = filteredPosts.slice(0, 5);
 
-// 4. Recommendation system mapping over categories using the filtered list
+// Recommendation system mapping over categories using the filtered list
 const targetCategories = ['current-affairs', 'technology', 'science', 'finance', 'social-studies'];
 const recommendedPosts = targetCategories.map(catId => {
   return filteredPosts.find(p => p.data.category.toLowerCase() === catId);
