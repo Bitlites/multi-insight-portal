@@ -25,12 +25,20 @@ const { Content, headings } = await render(post);
 const tocHeadings = headings.filter(h => h.depth === 3);
 
 const allPosts = await getCollection('posts');
-const sortedPosts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
-const trendingPosts = sortedPosts.slice(0, 5);
 
+// 1. Sort posts chronologically
+const chronologicalPosts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+// 2. EXCLUSION FILTER: Ensure the current active post can never appear in any recommendation pool
+const filteredPosts = chronologicalPosts.filter(p => p.id !== post.id);
+
+// 3. Trending block uses the filtered list (preventing self-recommendation here too)
+const trendingPosts = filteredPosts.slice(0, 5);
+
+// 4. Recommendation system mapping over categories using the filtered list
 const targetCategories = ['current-affairs', 'technology', 'science', 'finance', 'social-studies'];
 const recommendedPosts = targetCategories.map(catId => {
-  return sortedPosts.find(p => p.data.category.toLowerCase() === catId);
+  return filteredPosts.find(p => p.data.category.toLowerCase() === catId);
 }).filter(Boolean);
 
 // AUTOMATED METADATA LOOKUP: Zero-hardcoding compliant targeting standard paths
