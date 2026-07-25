@@ -21,6 +21,47 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content, headings } = await render(post);
 
+// ==========================================
+// AD INJECTION LOGIC START
+// ==========================================
+
+// 1. Convert the static markdown content into a workable HTML string pattern
+const rawContentHtml = await Astro.slots.render('default');
+
+// 2. AD SPLITTER UTILITY: Injects a lightweight markup placeholder every 3 paragraphs
+function injectMidPostAds(htmlString: string, injectEveryNParagraphs: number = 3) {
+  const paragraphs = htmlString.split('</p>');
+  
+  // Clean placeholder markup layout containing NO script tags inside the loop array
+  const googleAdPlaceholder = `
+    <div class="adsense-mid-post-placeholder my-10 text-center clear-both">
+      <span class="block text-[11px] font-medium tracking-wider text-slate-400 dark:text-slate-500 uppercase mb-2">Advertisement</span>
+      <ins class="adsbygoogle"
+           style="display:block; text-align:center;"
+           data-ad-layout="in-article"
+           data-ad-format="fluid"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" 
+           data-ad-slot="YYYYYYYYYY"></ins>
+    </div>
+  `;
+
+  return paragraphs.map((paragraph, index) => {
+    const isTargetInterval = (index + 1) % injectEveryNParagraphs === 0;
+    const isNotLastParagraph = index < paragraphs.length - 1;
+
+    if (isTargetInterval && isNotLastParagraph) {
+      return paragraph + '</p>' + googleAdPlaceholder;
+    }
+    return paragraph + (index < paragraphs.length - 1 ? '</p>' : '');
+  }).join('');
+}
+
+const adInjectedHtml = injectMidPostAds(rawContentHtml, 3);
+
+// ==========================================
+// AD INJECTION LOGIC END
+// ==========================================
+
 // Filter to grab only primary section subheadings (### anchors) for the roadmap mapping
 const tocHeadings = headings.filter(h => h.depth === 3);
 
@@ -127,8 +168,23 @@ const desktopWhatsAppWebUrl = 'https://api.whatsapp.com/send/?text=' + encodeURI
           prose-li:text-slate-600 dark:prose-li:text-slate-400 prose-li:text-sm md:prose-li:text-[15px]
           prose-ol:space-y-3 prose-ol:my-6 prose-ol:block prose-ol:list-decimal prose-ol:pl-5
           prose-hr:border-slate-200 dark:prose-hr:border-slate-800 prose-hr:my-8">
-          <Content />
+          <!-- Renders your sanitized, ad-injected article string effortlessly into the layout DOM -->
+          <Fragment set:html={adInjectedHtml} />
         </div>
+
+        <!-- ⚙️ INITIALIZATION SCRIPT: Runs exactly once on the browser to load your ads -->
+        <script is:inline>
+          document.addEventListener("DOMContentLoaded", () => {
+            const totalAds = document.querySelectorAll('.adsbygoogle').length;
+            for (let i = 0; i < totalAds; i++) {
+              try {
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
+              } catch (e) {
+                console.warn("AdSense layout shift protection engaged:", e);
+              }
+            }
+          });
+        </script>
 
         <!-- COMPACT HYBRID SHARING RIBBON HUB -->
         <div class="border-t border-slate-100 dark:border-slate-800 pt-6 mt-10 space-y-4">
