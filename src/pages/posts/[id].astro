@@ -1,6 +1,8 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ADS_CONFIG } from '../../config/adsConfig';
+import AdSlot from '../components/AdSlot.astro';
 
 // Import the official compiled components for standard networks only
 import { 
@@ -52,19 +54,15 @@ const desktopWhatsAppWebUrl = 'https://api.whatsapp.com/send/?text=' + encodeURI
 
 <BaseLayout title={`${post.data.title} — Multi-Insight Portal`}>
 
-  <!-- GOOGLE ADSENSE POST TOP BANNER -->
-  <div class="w-full bg-gradient-to-r from-slate-100 via-slate-50 to-slate-100 dark:from-slate-900 dark:via-slate-900 dark:to-slate-900 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl p-4 text-center mb-10 shadow-sm font-mono text-xs text-slate-400 select-none">
-    [ GOOGLE ADSENSE BANNER — POST TOP SLOT ]
-  </div>
+  <!-- 1. TOP IMPRESSION SLOT -->
+  <AdSlot slotType="topSlot" className="max-w-4xl" />
 
   <!-- 4-COLUMN PATTERN INTERACTIVE MATRIX GRID -->
   <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
 
-    <!-- COLUMN 1: LEFT VERTICAL AD CONTAINER (Purely Ads) -->
-    <aside class="hidden lg:block lg:col-span-1 self-start sticky top-24">
-      <div class="w-full bg-gradient-to-b from-slate-100 to-slate-50 dark:from-slate-900 dark:to-slate-950 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl py-64 text-center text-xs tracking-wider text-slate-400 font-mono select-none">
-        [ GOOGLE ADSENSE <br/> LEFT VERTICAL <br/> SKYSCRAPER AD ]
-      </div>
+    <!-- 2. LEFT VERTICAL SKYSCRAPER COLUMN -->
+    <aside class="hidden xl:block w-64 shrink-0 sticky top-28">
+      <AdSlot slotType="leftSkyscraper" className="min-h-[600px]" />
     </aside>
 
     <!-- COLUMNS 2 & 3: MAIN CORE TEXT CONTENT CARD SECTION -->
@@ -111,9 +109,12 @@ const desktopWhatsAppWebUrl = 'https://api.whatsapp.com/send/?text=' + encodeURI
           </div>
         )}
 
-        <!-- RE-BALANCED MID-POST AD PLACEMENT -->
-        <div class="w-full bg-slate-50 dark:bg-slate-950 border border-dashed border-slate-200 dark:border-slate-800 rounded-xl p-4 text-center my-6 font-mono text-[10px] text-slate-400 select-none">
-          [ GOOGLE ADSENSE — MID-POST INLINE AD CONTROLLER ]
+        <!-- 3. INLINE SLOT JUST BELOW TABLE OF CONTENT -->
+        <AdSlot slotType="midPostInline" />
+
+        <!-- 🔒 CENTRAL ADS FRAMEWORK VAULT: Hidden template slot used by the injector engine -->
+        <div id="ads-inline-vault" class="hidden" aria-hidden="true">
+          <AdSlot slotType="midPostInline" />
         </div>
 
         <!-- MAIN BODY RICH TEXT CONTENT LAYER -->
@@ -130,61 +131,52 @@ const desktopWhatsAppWebUrl = 'https://api.whatsapp.com/send/?text=' + encodeURI
           <Content />
         </div>
 
-        <!-- ⚙️ FIXED PRODUCTION ENGINE: Safely injects professional mock ads inside your content root -->
-        <script is:inline>
+        <!-- ⚙️ UNIFIED DYNAMIC MID-POST INJECTOR ENGINE -->
+        <script is:inline define:vars={{ isLive: ADS_CONFIG.isLive }}>
           document.addEventListener("DOMContentLoaded", () => {
             const contentRoot = document.getElementById('post-content-root');
-            if (!contentRoot) return;
+            const templateVault = document.getElementById('ads-inline-vault');
+            if (!contentRoot || !templateVault) return;
+
+            // Grab the pre-rendered layout generated natively by your AdSlot component
+            const templateNode = templateVault.firstElementChild;
+            if (!templateNode) return;
 
             const paragraphs = contentRoot.querySelectorAll(':scope > p');
             const injectEveryNParagraphs = 3;
 
-            // Production-grade mock ad container component 
-            const createMockAdMarkup = (index) => {
-              const wrapper = document.createElement('div');
-              wrapper.className = "mock-ad-portal-unit my-10 mx-auto text-center clear-both max-w-xl";
-              wrapper.innerHTML = `
-                <div class="relative border border-dashed border-slate-300 dark:border-slate-700 bg-slate-50/60 dark:bg-slate-900/40 rounded-2xl p-4 transition shadow-sm">
-                  <span class="block text-[10px] font-bold tracking-wider text-slate-400 dark:text-slate-500 uppercase mb-2">
-                    Sponsored Ad Unit #${Math.floor(index / injectEveryNParagraphs) + 1}
-                  </span>
-                  <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="block group">
-                    <div class="flex items-center justify-between bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl px-5 py-4 text-left shadow-sm hover:opacity-95 transition">
-                      <div>
-                        <h4 class="font-bold text-sm md:text-base tracking-tight">
-                          Explore Multi-Insight Portal Repository
-                        </h4>
-                        <p class="text-[11px] text-blue-100 mt-0.5 font-medium">
-                          Review our architecture code, layouts, and high-utility features.
-                        </p>
-                      </div>
-                      <span class="bg-white/20 hover:bg-white/30 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition shrink-0 ml-4">
-                        Star on GitHub →
-                      </span>
-                    </div>
-                  </a>
-                </div>
-              `;
-              return wrapper;
-            };
-
-            // Inject the elegant mock cards every 3 paragraphs safely
+            // Inject dynamic ad components seamlessly after every 3 paragraphs
             paragraphs.forEach((p, index) => {
               if ((index + 1) % injectEveryNParagraphs === 0 && index < paragraphs.length - 1) {
-                p.insertAdjacentElement('afterend', createMockAdMarkup(index));
+                // Deep-clone your central configuration wrapper layout structure
+                const adClone = templateNode.cloneNode(true);
+                
+                p.insertAdjacentElement('afterend', adClone);
               }
             });
 
-            // 🚨 AD-BLOCKER HOOK: Checks if an extension blocks or hides our mock components
+            // 🚀 INITIALIZER RUN: If the master switch is live, push setups to the active window array
+            if (isLive) {
+              const totalLiveAds = document.querySelectorAll('.adsbygoogle').length;
+              for (let i = 0; i < totalLiveAds; i++) {
+                try {
+                  (window.adsbygoogle = window.adsbygoogle || []).push({});
+                } catch (e) {
+                  console.warn("AdSense layout initialization held by local client configurations.");
+                }
+              }
+            }
+
+            // 🚨 UNIFIED REVENUE GUARD AD-BLOCKER HOOK
             setTimeout(() => {
-              const testAd = document.querySelector('.mock-ad-portal-unit');
-              const isBlocked = !testAd || testAd.offsetHeight === 0 || window.getComputedStyle(testAd).display === 'none';
+              const testSlot = document.querySelector('.ad-container-wrapper');
+              const isBlocked = !testSlot || testSlot.offsetHeight === 0 || window.getComputedStyle(testSlot).display === 'none';
               
               if (isBlocked) {
                 const modal = document.getElementById('adblock-modal');
                 if (modal) modal.classList.remove('hidden');
               }
-            }, 1200);
+            }, 1500);
           });
         </script>
 
@@ -319,17 +311,13 @@ const desktopWhatsAppWebUrl = 'https://api.whatsapp.com/send/?text=' + encodeURI
         </ul>
       </div>
 
-      <!-- RIGHT SIDEBAR IN-FEED ADS CONTAINER -->
-      <div class="w-full bg-gradient-to-b from-slate-100 to-slate-50 dark:from-slate-900 dark:to-slate-950 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl py-32 text-center text-xs tracking-wider text-slate-400 font-mono select-none">
-        [ GOOGLE ADSENSE SIDEBAR BANNER ]
-      </div>
+      <!-- 4. SIDEBAR RECTANGLE BANNER -->
+      <AdSlot slotType="sidebarBanner" />
     </aside>
   </div>
 
-  <!-- BOTTOM FULL HORIZONTAL GOOGLE ADSENSE FOOTER SLOT -->
-  <div class="w-full bg-gradient-to-r from-slate-100 via-slate-50 to-slate-100 dark:from-slate-900 dark:via-slate-900 dark:to-slate-900 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl p-5 text-center mt-12 shadow-sm font-mono text-xs text-slate-400 select-none">
-    [ GOOGLE ADSENSE — FOOTER HIGH-IMPRESSION NATIVE DISPLAY AD SLOT ]
-  </div>
+  <!-- 5. FOOTER HIGH IMPRESSION BANNER -->
+  <AdSlot slotType="footerHighImpression" class="max-w-5xl mt-12" />
 
 </BaseLayout>
 

@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdSlot from '../../components/AdSlot.astro';
 
 // 1. Generate URLs for all your navigation categories automatically
 export async function getStaticPaths() {
@@ -45,19 +46,16 @@ const recommendedPosts = targetCategories.map(catId => {
     </p>
   </div>
 
-  <!-- GOOGLE ADSENSE CATEGORY HEADER BANNER -->
-  <div class="w-full bg-gradient-to-r from-slate-100 via-slate-50 to-slate-100 dark:from-slate-900 dark:via-slate-900 dark:to-slate-900 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl p-4 text-center mb-10 shadow-sm font-mono text-xs text-slate-400 select-none">
-    [ GOOGLE ADSENSE BANNER — CATEGORY TOP SLOT ]
-  </div>
+  <!-- ✅ FRAMEWORK PLACEMENT: TOP CATEGORY BILLBOARD SLOT -->
+  <AdSlot slotType="topSlot" className="mb-10 shadow-sm" />
 
   <!-- 4-COLUMN STRUCTURAL PATTERN GRID STRIP -->
   <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
 
     <!-- COLUMN 1: LEFT VERTICAL AD CONTAINER (Hidden on mobile, visible on desktop) -->
     <aside class="hidden lg:block lg:col-span-1 self-start sticky top-24">
-      <div class="w-full bg-gradient-to-b from-slate-100 to-slate-50 dark:from-slate-900 dark:to-slate-950 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl py-64 text-center text-xs tracking-wider text-slate-400 font-mono select-none">
-        [ GOOGLE ADSENSE <br/> LEFT VERTICAL <br/> SKYSCRAPER AD ]
-      </div>
+      <!-- ✅ FRAMEWORK PLACEMENT: LEFT SKYSCRAPER BANNER CONTAINER -->
+      <AdSlot slotType="leftSkyscraper" />
     </aside>
 
     <!-- COLUMNS 2 & 3: CENTER STREAM CONTAINER -->
@@ -167,17 +165,13 @@ const recommendedPosts = targetCategories.map(catId => {
         </ul>
       </div>
 
-      <!-- IN-FEED ADS CONTAINER -->
-      <div class="w-full bg-gradient-to-b from-slate-100 to-slate-50 dark:from-slate-900 dark:to-slate-950 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl py-32 text-center text-xs tracking-wider text-slate-400 font-mono select-none">
-        [ GOOGLE ADSENSE SIDEBAR BANNER ]
-      </div>
+      <!-- ✅ FRAMEWORK PLACEMENT: SIDEBAR SQUARE AD UNIT -->
+      <AdSlot slotType="sidebarBanner" />
     </aside>
 
   </div>
 
-  <!-- BOTTOM FULL HORIZONTAL GOOGLE ADSENSE FOOTER DISPLAY SLOT -->
-  <div class="w-full bg-gradient-to-r from-slate-100 via-slate-50 to-slate-100 dark:from-slate-900 dark:via-slate-900 dark:to-slate-900 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl p-5 text-center mt-12 shadow-sm font-mono text-xs text-slate-400 select-none">
-    [ GOOGLE ADSENSE — FOOTER HIGH-IMPRESSION NATIVE DISPLAY AD SLOT ]
-  </div>
+  <!-- ✅ FRAMEWORK PLACEMENT: BOTTOM FULL HORIZONTAL FOOTER DISPLAY SLOT -->
+  <AdSlot slotType="footerHighImpression" className="mt-12" />
 
 </BaseLayout>

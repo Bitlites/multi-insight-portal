@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import AdSlot from '../components/AdSlot.astro';
 
 // Fetch all articles from the local markdown collection
 const allPosts = await getCollection('posts');
@@ -23,19 +24,16 @@ const contentBlocks = [
 
 <BaseLayout title="Home — Multi-Insight Portal">
 	
-	<!-- TOP GOOGLE ADSENSE LEADERBOARD CARD -->
-	<div class="w-full bg-gradient-to-r from-slate-100 via-slate-50 to-slate-100 dark:from-slate-900 dark:via-slate-900/60 dark:to-slate-900 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl p-4 text-center mb-10 shadow-sm relative overflow-hidden font-mono text-xs text-slate-400 select-none">
-		[ ADVERTISEMENT BANNER PLACEHOLDER - GOOGLE ADSENSE LEADERBOARD ]
-	</div>
+	<!-- ✅ FRAMEWORK IMPLEMENTATION: TOP LEADERBOARD SLOT -->
+	<AdSlot slotType="topSlot" className="mb-10 shadow-sm" />
 
 	<!-- 4-COLUMN LAYOUT MATRIX (LEFT ADS + CENTER FEEDS + RIGHT TRENDING/ADS) -->
 	<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
 		
 		<!-- COLUMN 1: LEFT VERTICAL SKYSCRAPER AD CONTAINER -->
 		<aside class="hidden lg:block lg:col-span-1 self-start sticky top-24">
-			<div class="w-full bg-gradient-to-b from-slate-100 to-slate-50 dark:from-slate-900 dark:to-slate-950 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl py-64 text-center text-xs tracking-wider text-slate-400 font-mono select-none">
-				[ GOOGLE ADSENSE <br/> LEFT VERTICAL <br/> SKYSCRAPER AD ]
-			</div>
+			<!-- ✅ FRAMEWORK IMPLEMENTATION: LEFT SKYSCRAPER COMPONENT -->
+			<AdSlot slotType="leftSkyscraper" />
 		</aside>
 
 		<!-- COLUMNS 2 & 3: CENTER MAIN SECTION CATEGORY FEEDS (Upped gap to space-y-16 for premium breathing room) -->
@@ -157,12 +155,12 @@ const contentBlocks = [
 				)}
 			</div>
 			
-			<!-- GOOGLE ADSENSE MEDIUM SIDEBAR CARD -->
-			<div class="w-full bg-gradient-to-b from-slate-100 to-slate-50 dark:from-slate-900 dark:to-slate-950 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl py-32 text-center text-xs tracking-wider text-slate-400 font-mono select-none">
-				[ GOOGLE ADSENSE RIGHT SIDEBAR CONTAINER ]
-			</div>
+			<!-- ✅ FRAMEWORK IMPLEMENTATION: FOOTER HIGH IMPRESSION BANNER -->
+			<AdSlot slotType="footerHighImpression" className="mt-12" />
 		</aside>
 
 	</div>
-
+	
+	<!-- ✅ FRAMEWORK IMPLEMENTATION: FOOTER HIGH IMPRESSION BANNER -->
+	<AdSlot slotType="footerHighImpression" className="mt-12" />
 </BaseLayout>
