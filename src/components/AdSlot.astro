@@ -8,9 +8,13 @@ interface Props {
 
 const { slotType, className = "" } = Astro.props;
 const currentSlot = ADS_CONFIG.slots[slotType];
+
+// 🧠 INDUSTRY STANDARD: Compute the entire combined class string here in the frontmatter.
+// This decouples string matching from the HTML block below, ensuring a stable build on Cloudflare.
+const combinedClasses = `ad-container-wrapper w-full mx-auto my-8 text-center clear-both ${className} ${currentSlot.style || ""}`.trim();
 ---
 
-<div class={`ad-container-wrapper w-full mx-auto my-8 text-center clear-both ${className} ${currentSlot.style}`}>
+<div class={combinedClasses}>
   <span class="block text-[10px] font-bold tracking-wider text-slate-400 dark:text-slate-500 uppercase mb-2">
     Advertisement
   </span>
