@@ -19,43 +19,7 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-
-// 1. INDUSTRY STANDARD: Render the component layout and access the raw compiled html string directly
-const renderResult = await render(post);
-const { Content, headings } = renderResult;
-
-// Get the raw compiled HTML directly from the Astro render engine pipeline to prevent undefined crashes
-const rawContentHtml = renderResult.html || '';
-
-// 2. AD SPLITTER UTILITY: Injects a lightweight markup placeholder every 3 paragraphs safely
-function injectMidPostAds(htmlString: string, injectEveryNParagraphs: number = 3) {
-  if (!htmlString) return '';
-  const paragraphs = htmlString.split('</p>');
-  
-  const googleAdPlaceholder = `
-    <div class="adsense-mid-post-placeholder my-10 text-center clear-both">
-      <span class="block text-[11px] font-medium tracking-wider text-slate-400 dark:text-slate-500 uppercase mb-2">Advertisement</span>
-      <ins class="adsbygoogle"
-           style="display:block; text-align:center;"
-           data-ad-layout="in-article"
-           data-ad-format="fluid"
-           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" 
-           data-ad-slot="YYYYYYYYYY"></ins>
-    </div>
-  `;
-
-  return paragraphs.map((paragraph, index) => {
-    const isTargetInterval = (index + 1) % injectEveryNParagraphs === 0;
-    const isNotLastParagraph = index < paragraphs.length - 1;
-
-    if (isTargetInterval && isNotLastParagraph) {
-      return paragraph + '</p>' + googleAdPlaceholder;
-    }
-    return paragraph + (index < paragraphs.length - 1 ? '</p>' : '');
-  }).join('');
-}
-
-const adInjectedHtml = injectMidPostAds(rawContentHtml, 3);
+const { Content, headings } = await render(post);
 
 // Filter to grab only primary section subheadings (### anchors) for the roadmap mapping
 const tocHeadings = headings.filter(h => h.depth === 3);
@@ -163,21 +127,62 @@ const desktopWhatsAppWebUrl = 'https://api.whatsapp.com/send/?text=' + encodeURI
           prose-li:text-slate-600 dark:prose-li:text-slate-400 prose-li:text-sm md:prose-li:text-[15px]
           prose-ol:space-y-3 prose-ol:my-6 prose-ol:block prose-ol:list-decimal prose-ol:pl-5
           prose-hr:border-slate-200 dark:prose-hr:border-slate-800 prose-hr:my-8">
-          <!-- Renders your sanitized, ad-injected article string effortlessly into the layout DOM -->
-          <Fragment set:html={adInjectedHtml} />
+          <Content />
         </div>
 
-        <!-- ⚙️ INITIALIZATION SCRIPT: Runs exactly once on the browser to load your ads -->
+        <!-- ⚙️ PRODUCTION CLIENT PIPELINE: Handles mid-post placement adjustments dynamically -->
         <script is:inline>
           document.addEventListener("DOMContentLoaded", () => {
+            const contentRoot = document.getElementById('post-content-root');
+            if (!contentRoot) return;
+
+            // Grab all valid paragraph blocks in this post
+            const paragraphs = contentRoot.querySelectorAll(':scope > p');
+            const injectEveryNParagraphs = 3;
+
+            // Standard AdSense placeholder unit structural blueprint 
+            const createAdMarkup = () => {
+              const wrapper = document.createElement('div');
+              wrapper.className = "adsense-mid-post-placeholder my-10 text-center clear-both";
+              wrapper.innerHTML = `
+                <span class="block text-[11px] font-medium tracking-wider text-slate-400 dark:text-slate-500 uppercase mb-2">Advertisement</span>
+                <ins class="adsbygoogle"
+                    style="display:block; text-align:center;"
+                    data-ad-layout="in-article"
+                    data-ad-format="fluid"
+                    data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" 
+                    data-ad-slot="YYYYYYYYYY"></ins>
+              `;
+              return wrapper;
+            };
+
+            // Inject ad containers after every 3 paragraphs safely
+            paragraphs.forEach((p, index) => {
+              if ((index + 1) % injectEveryNParagraphs === 0 && index < paragraphs.length - 1) {
+                p.insertAdjacentElement('afterend', createAdMarkup());
+              }
+            });
+
+            // Fire the AdSense initialization push sequence safely
             const totalAds = document.querySelectorAll('.adsbygoogle').length;
             for (let i = 0; i < totalAds; i++) {
               try {
                 (window.adsbygoogle = window.adsbygoogle || []).push({});
               } catch (e) {
-                console.warn("AdSense layout shift protection engaged:", e);
+                console.warn("Ad placeholder ready.");
               }
             }
+
+            // 🚨 COHESIVE AD-BLOCKER DETECTION: Verifies if asset calls are failing
+            setTimeout(() => {
+              const testAd = document.querySelector('.adsbygoogle');
+              const isBlocked = !testAd || testAd.offsetHeight === 0 || window.getComputedStyle(testAd).display === 'none';
+              
+              if (isBlocked) {
+                const modal = document.getElementById('adblock-modal');
+                if (modal) modal.classList.remove('hidden');
+              }
+            }, 1500);
           });
         </script>
 
