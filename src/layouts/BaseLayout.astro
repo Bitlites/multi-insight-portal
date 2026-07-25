@@ -20,37 +20,6 @@ const canonicalFavicon = new URL('/favicon.svg', Astro.site || Astro.url).href;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=updated2026" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		
-		<!-- ⚡ PRODUCTION LAZY-LOAD ADSENSE: Ignores development environments to eliminate CORS errors -->
-		<script is:inline>
-			const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-
-			if (!isLocalhost) {
-				function loadAdSense() {
-				if (window.adsenseLoaded) return;
-				window.adsenseLoaded = true;
-
-				const script = document.createElement('script');
-				// Updated to the official fully-qualified Google AdSense endpoint
-				script.src = "https://googlesyndication.com";
-				script.async = true;
-				script.crossOrigin = "anonymous";
-				document.head.appendChild(script);
-
-				cleanupListeners();
-				}
-
-				const userEvents = ['touchstart', 'scroll', 'mousemove', 'click'];
-				
-				function cleanupListeners() {
-				userEvents.forEach(event => window.removeEventListener(event, loadAdSense));
-				}
-
-				userEvents.forEach(event => window.addEventListener(event, loadAdSense, { passive: true }));
-			} else {
-				console.log("Localhost environment detected: AdSense tracking paused to prevent CORS issues.");
-			}
-		</script>
-
 		<link rel="preconnect" href="https://googleapis.com">
 		<link rel="preconnect" href="https://gstatic.com" crossorigin>
 		<link href="https://googleapis.com/css2?family=Cabinet+Grotesk:wght@800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">

@@ -117,7 +117,7 @@ const desktopWhatsAppWebUrl = 'https://api.whatsapp.com/send/?text=' + encodeURI
         </div>
 
         <!-- MAIN BODY RICH TEXT CONTENT LAYER -->
-        <div class="prose prose-slate dark:prose-invert max-w-none 
+        <div id="post-content-root" class="prose prose-slate dark:prose-invert max-w-none 
           prose-headings:font-['Cabinet_Grotesk'] prose-headings:font-black prose-headings:tracking-tight prose-headings:text-slate-900 dark:prose-headings:text-white
           prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:border-b prose-h2:border-slate-100 dark:prose-h2:border-slate-800 prose-h2:pb-2
           prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-3
@@ -130,59 +130,61 @@ const desktopWhatsAppWebUrl = 'https://api.whatsapp.com/send/?text=' + encodeURI
           <Content />
         </div>
 
-        <!-- ⚙️ PRODUCTION CLIENT PIPELINE: Handles mid-post placement adjustments dynamically -->
+        <!-- ⚙️ FIXED PRODUCTION ENGINE: Safely injects professional mock ads inside your content root -->
         <script is:inline>
           document.addEventListener("DOMContentLoaded", () => {
             const contentRoot = document.getElementById('post-content-root');
             if (!contentRoot) return;
 
-            // Grab all valid paragraph blocks in this post
             const paragraphs = contentRoot.querySelectorAll(':scope > p');
             const injectEveryNParagraphs = 3;
 
-            // Standard AdSense placeholder unit structural blueprint 
-            const createAdMarkup = () => {
+            // Production-grade mock ad container component 
+            const createMockAdMarkup = (index) => {
               const wrapper = document.createElement('div');
-              wrapper.className = "adsense-mid-post-placeholder my-10 text-center clear-both";
+              wrapper.className = "mock-ad-portal-unit my-10 mx-auto text-center clear-both max-w-xl";
               wrapper.innerHTML = `
-                <span class="block text-[11px] font-medium tracking-wider text-slate-400 dark:text-slate-500 uppercase mb-2">Advertisement</span>
-                <ins class="adsbygoogle"
-                    style="display:block; text-align:center;"
-                    data-ad-layout="in-article"
-                    data-ad-format="fluid"
-                    data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" 
-                    data-ad-slot="YYYYYYYYYY"></ins>
+                <div class="relative border border-dashed border-slate-300 dark:border-slate-700 bg-slate-50/60 dark:bg-slate-900/40 rounded-2xl p-4 transition shadow-sm">
+                  <span class="block text-[10px] font-bold tracking-wider text-slate-400 dark:text-slate-500 uppercase mb-2">
+                    Sponsored Ad Unit #${Math.floor(index / injectEveryNParagraphs) + 1}
+                  </span>
+                  <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="block group">
+                    <div class="flex items-center justify-between bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl px-5 py-4 text-left shadow-sm hover:opacity-95 transition">
+                      <div>
+                        <h4 class="font-bold text-sm md:text-base tracking-tight">
+                          Explore Multi-Insight Portal Repository
+                        </h4>
+                        <p class="text-[11px] text-blue-100 mt-0.5 font-medium">
+                          Review our architecture code, layouts, and high-utility features.
+                        </p>
+                      </div>
+                      <span class="bg-white/20 hover:bg-white/30 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition shrink-0 ml-4">
+                        Star on GitHub →
+                      </span>
+                    </div>
+                  </a>
+                </div>
               `;
               return wrapper;
             };
 
-            // Inject ad containers after every 3 paragraphs safely
+            // Inject the elegant mock cards every 3 paragraphs safely
             paragraphs.forEach((p, index) => {
               if ((index + 1) % injectEveryNParagraphs === 0 && index < paragraphs.length - 1) {
-                p.insertAdjacentElement('afterend', createAdMarkup());
+                p.insertAdjacentElement('afterend', createMockAdMarkup(index));
               }
             });
 
-            // Fire the AdSense initialization push sequence safely
-            const totalAds = document.querySelectorAll('.adsbygoogle').length;
-            for (let i = 0; i < totalAds; i++) {
-              try {
-                (window.adsbygoogle = window.adsbygoogle || []).push({});
-              } catch (e) {
-                console.warn("Ad placeholder ready.");
-              }
-            }
-
-            // 🚨 COHESIVE AD-BLOCKER DETECTION: Verifies if asset calls are failing
+            // 🚨 AD-BLOCKER HOOK: Checks if an extension blocks or hides our mock components
             setTimeout(() => {
-              const testAd = document.querySelector('.adsbygoogle');
+              const testAd = document.querySelector('.mock-ad-portal-unit');
               const isBlocked = !testAd || testAd.offsetHeight === 0 || window.getComputedStyle(testAd).display === 'none';
               
               if (isBlocked) {
                 const modal = document.getElementById('adblock-modal');
                 if (modal) modal.classList.remove('hidden');
               }
-            }, 1500);
+            }, 1200);
           });
         </script>
 
