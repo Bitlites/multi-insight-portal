@@ -11,7 +11,6 @@ const currentSlot = ADS_CONFIG.slots[slotType];
 ---
 
 <div class={`ad-container-wrapper w-full mx-auto my-8 text-center clear-both ${className} ${currentSlot.style}`}>
-  <!-- Accent Badge to reserve standard layout tracking labels -->
   <span class="block text-[10px] font-bold tracking-wider text-slate-400 dark:text-slate-500 uppercase mb-2">
     Advertisement
   </span>
@@ -25,7 +24,7 @@ const currentSlot = ADS_CONFIG.slots[slotType];
          data-ad-format={currentSlot.format}
          data-full-width-responsive="true"></ins>
   ) : (
-    <!-- 🔵 MOCK REVIEW MODE: Renders styled cards matching your current theme properties -->
+    <!-- 🔵 MOCK REVIEW MODE -->
     <div class="relative border border-dashed border-slate-300 dark:border-slate-700 bg-slate-50/60 dark:bg-slate-900/40 rounded-2xl p-4 transition shadow-sm select-none group hover:border-blue-500 dark:hover:border-blue-400 duration-200">
       <div class="bg-gradient-to-br from-slate-800 to-slate-900 dark:from-slate-900 dark:to-slate-950 text-white rounded-xl p-5 shadow-inner">
         <h4 class="font-['Cabinet_Grotesk'] font-bold text-xs uppercase tracking-widest text-blue-400 dark:text-indigo-400 mb-1">
