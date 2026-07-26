@@ -35,143 +35,145 @@ const recommendedPosts = targetCategories.map(catId => {
 ---
 
 <BaseLayout title={`${name} Hub — Multi-Insight Portal`}>
-  
-  <!-- HERO SEGMENT HEADER (Cleaned and Emoji-Enhanced) -->
-  <div class="mb-8 text-center md:text-left">
-    <h1 class="text-3xl md:text-4xl font-black tracking-tight text-slate-900 dark:text-white uppercase flex items-center justify-center md:justify-start gap-2.5 font-['Cabinet_Grotesk']">
-      <span class="text-3xl md:text-4xl select-none">{emoji}</span> {name}
-    </h1>
-    <p class="text-slate-500 dark:text-slate-400 mt-2 text-sm max-w-2xl leading-relaxed">
-      Explore our latest analyses, data trends, and curated insights on {name}.
-    </p>
-  </div>
-
-  <!-- ✅ FRAMEWORK PLACEMENT: TOP CATEGORY BILLBOARD SLOT -->
-  <AdSlot slotType="topSlot" className="mb-10 shadow-sm" />
-
-  <!-- 4-COLUMN STRUCTURAL PATTERN GRID STRIP -->
-  <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
-
-    <!-- COLUMN 1: LEFT VERTICAL AD CONTAINER (Hidden on mobile, visible on desktop) -->
-    <aside class="hidden lg:block lg:col-span-1 self-start sticky top-24">
-      <!-- ✅ FRAMEWORK PLACEMENT: LEFT SKYSCRAPER BANNER CONTAINER -->
-      <AdSlot slotType="leftSkyscraper" />
-    </aside>
-
-    <!-- COLUMNS 2 & 3: CENTER STREAM CONTAINER -->
-    <div class="md:col-span-2 lg:col-span-2 space-y-12">
-      <section class="space-y-5">
-        {filteredPosts.length === 0 ? (
-          <div class="bg-white dark:bg-slate-900 rounded-2xl p-8 text-center border border-slate-200/60 dark:border-slate-800/60 shadow-sm">
-            <p class="text-slate-400 dark:text-slate-500 font-medium">No publications posted under this category yet.</p>
-            <p class="text-xs text-slate-400 dark:text-slate-500 mt-1">New article drafts are currently being verified by our editorial board.</p>
-          </div>
-        ) : (
-          <div class="space-y-5">
-            {filteredPosts.map((post) => {
-              const words = post.body ? post.body.split(/\s+/).length : 0;
-              const readTimeMin = Math.max(1, Math.ceil(words / 200));
-
-              return (
-                <article class="group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/60 dark:border-slate-800/60 overflow-hidden flex flex-col sm:flex-row gap-5 p-4 hover:border-blue-200 dark:hover:border-blue-900 hover:shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-300">
-                  <!-- Smart Image Box: Renders custom post image if present, defaults to gradient if empty -->
-                  <div class="w-full sm:w-1/3 h-28 rounded-xl shrink-0 flex flex-col justify-between p-3 relative overflow-hidden shadow-inner border border-slate-100 dark:border-transparent bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-950">
-                    
-                    {post.data.image && (
-                      <img 
-                        src={post.data.image} 
-                        alt={post.data.title} 
-                        class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    )}
-
-                    <!-- Category Tag Overlay (Always sits crisply on top of the image) -->
-                    <span class="relative bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm text-[8px] font-extrabold uppercase tracking-widest self-start px-1.5 py-0.5 rounded shadow-sm text-blue-600 dark:text-blue-400">
-                      {post.data.category}
-                    </span>
-                  </div>
-
-                  <div class="w-full sm:w-2/3 flex flex-col justify-between py-0.5">
-                    <div>
-                      <h3 class="text-md font-bold text-slate-900 dark:text-white tracking-tight leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                        <a href={`/posts/${post.id}`}>
-                          {post.data.title}
-                        </a>
-                      </h3>
-                      <p class="text-slate-500 dark:text-slate-300 text-xs mt-1.5 line-clamp-2 leading-relaxed font-normal">
-                        {post.data.summary}
-                      </p>
-                    </div>
-                    <div class="text-[10px] font-medium text-slate-400 dark:text-slate-500 mt-3 flex items-center justify-between border-t border-slate-50 dark:border-slate-800/60 pt-2">
-                      <span>By {post.data.author}</span>
-                      <span class="flex items-center gap-1">
-                        <span>⏱️ {readTimeMin} min read</span>
-                        <span>·</span>
-                        <span>{post.data.date}</span>
-                      </span>
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        )}
-      </section>
+  <div class="w-full px-4 sm:px-6 lg:px-8">
+    
+    <!-- HERO SEGMENT HEADER (Cleaned and Emoji-Enhanced) -->
+    <div class="mb-8 text-center md:text-left">
+      <h1 class="text-3xl md:text-4xl font-black tracking-tight text-slate-900 dark:text-white uppercase flex items-center justify-center md:justify-start gap-2.5 font-['Cabinet_Grotesk']">
+        <span class="text-3xl md:text-4xl select-none">{emoji}</span> {name}
+      </h1>
+      <p class="text-slate-500 dark:text-slate-400 mt-2 text-sm max-w-2xl leading-relaxed">
+        Explore our latest analyses, data trends, and curated insights on {name}.
+      </p>
     </div>
 
-    <!-- COLUMN 4: RIGHT SECTION SIDEBAR COLUMN -->
-    <aside class="md:col-span-1 lg:col-span-1 space-y-8 self-start md:sticky md:top-24">
-      
-      <!-- TRENDING COMPONENT -->
-      <div class="bg-white p-6 dark:bg-slate-900 rounded-2xl border border-slate-200/60 dark:border-slate-800/60 shadow-sm relative overflow-hidden">
-        <h2 class="text-md font-black uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-3.5 mb-5 font-['Cabinet_Grotesk'] flex items-center gap-2">
-          <span class="text-xl select-none">🔥</span> Trending
-        </h2>
-        <ul class="space-y-5">
-          {trendingPosts.map((post, index) => (
-            <li class="group cursor-pointer flex gap-3.5 items-start">
-              <span class="text-xl font-black text-slate-200 dark:text-slate-700 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-none font-['Cabinet_Grotesk']">
-                {String(index + 1).padStart(2, '0')}
-              </span>
-              <div class="space-y-0.5">
-                <h4 class="text-xs font-bold text-slate-800 dark:text-slate-200 leading-snug group-hover:underline">
+    <!-- ✅ FRAMEWORK PLACEMENT: TOP CATEGORY BILLBOARD SLOT -->
+    <AdSlot slotType="topSlot" className="mb-10 shadow-sm w-full" />
+
+    <!-- 4-COLUMN STRUCTURAL PATTERN GRID STRIP -->
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+
+      <!-- COLUMN 1: LEFT VERTICAL AD CONTAINER (Hidden on mobile, visible on desktop) -->
+      <aside class="hidden lg:block lg:col-span-1 self-start sticky top-24">
+        <!-- ✅ FRAMEWORK PLACEMENT: LEFT SKYSCRAPER BANNER CONTAINER -->
+        <AdSlot slotType="leftSkyscraper" className="w-full h-full" />
+      </aside>
+
+      <!-- COLUMNS 2 & 3: CENTER STREAM CONTAINER -->
+      <div class="md:col-span-2 lg:col-span-2 space-y-12">
+        <section class="space-y-5">
+          {filteredPosts.length === 0 ? (
+            <div class="bg-white dark:bg-slate-900 rounded-2xl p-8 text-center border border-slate-200/60 dark:border-slate-800/60 shadow-sm">
+              <p class="text-slate-400 dark:text-slate-500 font-medium">No publications posted under this category yet.</p>
+              <p class="text-xs text-slate-400 dark:text-slate-500 mt-1">New article drafts are currently being verified by our editorial board.</p>
+            </div>
+          ) : (
+            <div class="space-y-5">
+              {filteredPosts.map((post) => {
+                const words = post.body ? post.body.split(/\s+/).length : 0;
+                const readTimeMin = Math.max(1, Math.ceil(words / 200));
+
+                return (
+                  <article class="group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/60 dark:border-slate-800/60 overflow-hidden flex flex-col sm:flex-row gap-5 p-4 hover:border-blue-200 dark:hover:border-blue-900 hover:shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-300">
+                    <!-- Smart Image Box: Renders custom post image if present, defaults to gradient if empty -->
+                    <div class="w-full sm:w-1/3 h-28 rounded-xl shrink-0 flex flex-col justify-between p-3 relative overflow-hidden shadow-inner border border-slate-100 dark:border-transparent bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-950">
+                      
+                      {post.data.image && (
+                        <img 
+                          src={post.data.image} 
+                          alt={post.data.title} 
+                          class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      )}
+
+                      <!-- Category Tag Overlay (Always sits crisply on top of the image) -->
+                      <span class="relative bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm text-[8px] font-extrabold uppercase tracking-widest self-start px-1.5 py-0.5 rounded shadow-sm text-blue-600 dark:text-blue-400">
+                        {post.data.category}
+                      </span>
+                    </div>
+
+                    <div class="w-full sm:w-2/3 flex flex-col justify-between py-0.5">
+                      <div>
+                        <h3 class="text-md font-bold text-slate-900 dark:text-white tracking-tight leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                          <a href={`/posts/${post.id}`}>
+                            {post.data.title}
+                          </a>
+                        </h3>
+                        <p class="text-slate-500 dark:text-slate-300 text-xs mt-1.5 line-clamp-2 leading-relaxed font-normal">
+                          {post.data.summary}
+                        </p>
+                      </div>
+                      <div class="text-[10px] font-medium text-slate-400 dark:text-slate-500 mt-3 flex items-center justify-between border-t border-slate-50 dark:border-slate-800/60 pt-2">
+                        <span>By {post.data.author}</span>
+                        <span class="flex items-center gap-1">
+                          <span>⏱️ {readTimeMin} min read</span>
+                          <span>·</span>
+                          <span>{post.data.date}</span>
+                        </span>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          )}
+        </section>
+      </div>
+
+      <!-- COLUMN 4: RIGHT SECTION SIDEBAR COLUMN -->
+      <aside class="md:col-span-1 lg:col-span-1 space-y-8 self-start md:sticky md:top-24">
+        
+        <!-- TRENDING COMPONENT -->
+        <div class="bg-white p-6 dark:bg-slate-900 rounded-2xl border border-slate-200/60 dark:border-slate-800/60 shadow-sm relative overflow-hidden">
+          <h2 class="text-md font-black uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-3.5 mb-5 font-['Cabinet_Grotesk'] flex items-center gap-2">
+            <span class="text-xl select-none">🔥</span> Trending
+          </h2>
+          <ul class="space-y-5">
+            {trendingPosts.map((post, index) => (
+              <li class="group cursor-pointer flex gap-3.5 items-start">
+                <span class="text-xl font-black text-slate-200 dark:text-slate-700 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-none font-['Cabinet_Grotesk']">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <div class="space-y-0.5">
+                  <h4 class="text-xs font-bold text-slate-800 dark:text-slate-200 leading-snug group-hover:underline">
+                    <a href={`/posts/${post.id}`}>{post.data.title}</a>
+                  </h4>
+                  <span class="text-[9px] text-blue-600 dark:text-blue-400 font-extrabold uppercase tracking-widest block pt-0.5">
+                    {post.data.category}
+                  </span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- RECENT HIGH ENGAGEMENT RECOMMENDED LINKS ENGINE -->
+        <div class="bg-white p-6 dark:bg-slate-900 rounded-2xl border border-slate-200/60 dark:border-slate-800/60 shadow-sm relative overflow-hidden">
+          <h2 class="text-md font-black uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-3.5 mb-5 font-['Cabinet_Grotesk'] flex items-center gap-2">
+            <span class="text-xl select-none">💡</span> Recommended For You
+          </h2>
+          <ul class="space-y-4">
+            {recommendedPosts.map((post) => (
+              <li class="group border-b border-slate-50 dark:border-slate-800/60 pb-3 last:border-0 last:pb-0">
+                <h4 class="text-xs font-bold text-slate-800 dark:text-slate-200 leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400">
                   <a href={`/posts/${post.id}`}>{post.data.title}</a>
                 </h4>
-                <span class="text-[9px] text-blue-600 dark:text-blue-400 font-extrabold uppercase tracking-widest block pt-0.5">
-                  {post.data.category}
+                <span class="text-[9px] text-slate-400 dark:text-slate-500 font-medium block mt-1 uppercase font-mono">
+                  {post.data.category} · {post.data.date}
                 </span>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-      <!-- RECENT HIGH ENGAGEMENT RECOMMENDED LINKS ENGINE -->
-      <div class="bg-white p-6 dark:bg-slate-900 rounded-2xl border border-slate-200/60 dark:border-slate-800/60 shadow-sm relative overflow-hidden">
-        <h2 class="text-md font-black uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-3.5 mb-5 font-['Cabinet_Grotesk'] flex items-center gap-2">
-          <span class="text-xl select-none">💡</span> Recommended For You
-        </h2>
-        <ul class="space-y-4">
-          {recommendedPosts.map((post) => (
-            <li class="group border-b border-slate-50 dark:border-slate-800/60 pb-3 last:border-0 last:pb-0">
-              <h4 class="text-xs font-bold text-slate-800 dark:text-slate-200 leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400">
-                <a href={`/posts/${post.id}`}>{post.data.title}</a>
-              </h4>
-              <span class="text-[9px] text-slate-400 dark:text-slate-500 font-medium block mt-1 uppercase font-mono">
-                {post.data.category} · {post.data.date}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
+        <!-- ✅ FRAMEWORK PLACEMENT: SIDEBAR SQUARE AD UNIT -->
+        <AdSlot slotType="sidebarBanner" />
+      </aside>
 
-      <!-- ✅ FRAMEWORK PLACEMENT: SIDEBAR SQUARE AD UNIT -->
-      <AdSlot slotType="sidebarBanner" />
-    </aside>
+    </div>
 
+    <!-- ✅ FRAMEWORK PLACEMENT: BOTTOM FULL HORIZONTAL FOOTER DISPLAY SLOT -->
+    <AdSlot slotType="footerHighImpression" className="mt-12" w-full />
   </div>
-
-  <!-- ✅ FRAMEWORK PLACEMENT: BOTTOM FULL HORIZONTAL FOOTER DISPLAY SLOT -->
-  <AdSlot slotType="footerHighImpression" className="mt-12" />
-
+  
 </BaseLayout>
