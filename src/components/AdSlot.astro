@@ -8,7 +8,7 @@ interface Props {
 
 const { slotType, className = "" } = Astro.props;
 const currentSlot = ADS_CONFIG.slots[slotType];
-const combinedClasses = `ad-container-wrapper w-full mx-auto my-8 text-center clear-both ${className} ${currentSlot?.style || ""}`.trim();
+const combinedClasses = `ad-container-wrapper w-full !max-w-none mx-auto my-8 text-center clear-both ${className} ${currentSlot?.style || ""}`.trim();
 ---
 
 <div class={combinedClasses}>
