@@ -54,9 +54,9 @@ const recommendedPosts = targetCategories.map(catId => {
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
 
       <!-- COLUMN 1: LEFT VERTICAL AD CONTAINER (Hidden on mobile, visible on desktop) -->
-      <aside class="hidden lg:block lg:col-span-1 self-start sticky top-24">
+      <aside class="hidden lg:flex lg:col-span-1 h-full flex-col sticky top-24">
         <!-- ✅ FRAMEWORK PLACEMENT: LEFT SKYSCRAPER BANNER CONTAINER -->
-        <AdSlot slotType="leftSkyscraper" className="w-full h-full" />
+        <AdSlot slotType="leftSkyscraper" className="w-full h-full flex-1" />
       </aside>
 
       <!-- COLUMNS 2 & 3: CENTER STREAM CONTAINER -->
