@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import AdSlot from '../../components/AdSlot.astro';
 
 // Fetch all publications globally to keep sidebar feeds active and synced
 const allPosts = await getCollection('posts');
