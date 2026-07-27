@@ -4,6 +4,7 @@ date: "2026-07-16"
 category: "current-affairs"
 summary: "An analytical deep dive into shifting monetary parameters across core logistics networks and supply chain corridors."
 author: "Finance Desk"
+image: "../../assets/blog/inflation-thumb.jpg"
 ---
 
 Sovereign tracking data indicates shifting macroeconomic variables inside primary international transit lanes. As central banking authorities tighten asset reserve parameters to cool internal monetary velocity, the overhead costs of moving freight across cross-border hubs have adjusted rapidly, influencing global consumer pricing indexes.
