@@ -3,8 +3,17 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
-const { title = "Multi-Insight Portal" } = Astro.props;
-const canonicalFavicon = new URL('/favicon.svg', Astro.site || Astro.url).href;
+// 1. Accept SEO properties dynamically from individual pages, with safe fallbacks
+const { 
+	title = "Multi-Insight Portal", 
+	description = "A data-first static intelligence dashboard delivering optimized analytics across science, tech, and markets.",
+	image = "/src/assets/blog/default-meta.jpg" 
+} = Astro.props;
+
+// 2. Compute the dynamic self-referencing canonical URL based on your production domain
+const siteUrl = "https://multi-insight-portal.pages.dev";
+const canonicalURL = new URL(Astro.url.pathname, siteUrl);
+const ogImageUrl = new URL(image, siteUrl);
 ---
 <html lang="en">
 	<head>
@@ -18,22 +27,43 @@ const canonicalFavicon = new URL('/favicon.svg', Astro.site || Astro.url).href;
 		<meta charset="utf-8" />
 		<!-- FORCE-BUST INTERACTIVE CACHE ROUTER -->
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=updated2026" />
+
+		<!-- FIX: Direct structural reference for automated site mapping -->
+		<link rel="sitemap" href="/sitemap-index.xml" />
+
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		
+		<!-- STANDARD CRITICAL SEO PROTOCOLS -->
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalURL} />
+
+		<!-- AIO / GEO SOCIAL OPENGRAPH LAYERS -->
+		<meta property="og:type" content="article" />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={ogImageUrl} />
+
+		<!-- Twitter / X Card Assets -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:url" content={canonicalURL} />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageUrl} />
+		
+		<!-- Google Fonts Pipeline -->
 		<link rel="preconnect" href="https://googleapis.com">
 		<link rel="preconnect" href="https://gstatic.com" crossorigin>
 		<link href="https://googleapis.com/css2?family=Cabinet+Grotesk:wght@800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-		<title>{title}</title>
 	</head>
 	
-	<!-- Updated layout class tokens to listen to light/dark actions -->
 	<body class="bg-[#F8FAFC] text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-['Inter',sans-serif] antialiased transition-colors duration-200">
-
 
 		<Header />
 		
-		<!-- Added the data-pagefind-body selector to isolate search indexing -->
-		<main class="max-w-7xl mx-auto px-4 py-8" data-pagefind-body>
+		<!-- FIX: REMOVED data-pagefind-body here so operational pages are ignored by search indexes -->
+		<main class="max-w-7xl mx-auto px-4 py-8">
 			<slot />
 		</main>
 

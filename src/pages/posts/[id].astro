@@ -47,13 +47,53 @@ const recommendedPosts = targetCategories.map(catId => {
 // AUTOMATED METADATA LOOKUP: Zero-hardcoding compliant targeting standard paths
 const requestUrl = Astro.url;
 const absolutePostUrl = requestUrl.origin + '/posts/' + post.id;
-const articleTitle = post.data.title + ' — Multi-Insight Portal';
+const articleTitle = post.data.title + ' - Multi-Insight Portal';
 
 // FIXED Geneic API ROUTE: Forces desktop web layouts using formal URL queries
 const desktopWhatsAppWebUrl = 'https://api.whatsapp.com/send/?text=' + encodeURIComponent(articleTitle + ' - ' + absolutePostUrl) + '&type=custom_url&app_absent=0';
+
+// Map your content categories to official schema.org type definitions
+const schemaTypeMap: Record<string, string> = {
+  'technology': 'TechArticle',
+  'science': 'ScholarlyArticle',
+  'finance': 'FinanceArticle',
+  'current-affairs': 'NewsArticle',
+  'social-studies': 'SocialArticle'
+};
+
+// Fallback to a standard generic Article if the category doesn't match perfectly
+const currentCategory = post.data.category?.toLowerCase() || '';
+const optimalSchemaType = schemaTypeMap[currentCategory] || 'Article';
 ---
 
-<BaseLayout title={`${post.data.title} — Multi-Insight Portal`}>
+<BaseLayout title={`${post.data.title} - Multi-Insight Portal`} description={post.data.summary}>
+
+  <!-- ADVANCED AIO / GEO STRUCTURED SCHEMA DATA DATA -->
+  <script type="application/ld+json" is:inline define:vars={{
+    title: post.data.title, 
+    summary: post.data.summary, 
+    date: post.data.date, 
+    author: post.data.author,
+    url: Astro.url.href,
+    schemaType: optimalSchemaType
+  }}>
+    {
+      "@context": "https://schema.org",
+      "@type": schemaType,
+      "headline": title,
+      "description": summary,
+      "datePublished": date,
+      "author": {
+        "@type": "Person",
+        "name": author
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Multi-Insight Portal"
+      },
+      "mainEntityOfPage": url
+    }
+  </script>
 
   <div class="w-full px-4 sm:px-6 lg:px-8">	
     <!-- 1. TOP IMPRESSION SLOT -->

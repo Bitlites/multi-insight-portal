@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Explicitly invite AI search models
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+Sitemap: https://multi-insight-portal.pages.dev

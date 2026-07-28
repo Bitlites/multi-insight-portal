@@ -1,11 +1,14 @@
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
-// https://astro.build
 export default defineConfig({
   // CRITICAL CONFIG: Tell Astro your exact live URL location
-  site: 'https://multi-insight-portal.pages.dev', 
+  site: 'https://multi-insight-portal.pages.dev',
   vite: {
     plugins: [tailwindcss()]
-  }
+  },
+  integrations: [
+    sitemap()
+  ],
 });
