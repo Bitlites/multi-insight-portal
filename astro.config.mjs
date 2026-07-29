@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   // CRITICAL CONFIG: Tell Astro your exact live URL location
-  site: 'https://multi-insight-portal.pages.dev',
+  site: 'https://thankwisdom.com',
   vite: {
     plugins: [tailwindcss()]
   },

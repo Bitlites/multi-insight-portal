@@ -8,4 +8,4 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
-Sitemap: https://multi-insight-portal.pages.dev
+Sitemap: https://thankwisdom.com

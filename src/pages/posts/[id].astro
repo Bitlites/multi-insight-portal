@@ -47,7 +47,7 @@ const recommendedPosts = targetCategories.map(catId => {
 // AUTOMATED METADATA LOOKUP: Zero-hardcoding compliant targeting standard paths
 const requestUrl = Astro.url;
 const absolutePostUrl = requestUrl.origin + '/posts/' + post.id;
-const articleTitle = post.data.title + ' - Multi-Insight Portal';
+const articleTitle = post.data.title + ' - Thank Wisdom';
 
 // FIXED Geneic API ROUTE: Forces desktop web layouts using formal URL queries
 const desktopWhatsAppWebUrl = 'https://api.whatsapp.com/send/?text=' + encodeURIComponent(articleTitle + ' - ' + absolutePostUrl) + '&type=custom_url&app_absent=0';
@@ -66,7 +66,7 @@ const currentCategory = post.data.category?.toLowerCase() || '';
 const optimalSchemaType = schemaTypeMap[currentCategory] || 'Article';
 ---
 
-<BaseLayout title={`${post.data.title} - Multi-Insight Portal`} description={post.data.summary}>
+<BaseLayout title={`${post.data.title} - Thank Wisdom`} description={post.data.summary}>
 
   <!-- ADVANCED AIO / GEO STRUCTURED SCHEMA DATA DATA -->
   <script type="application/ld+json" is:inline define:vars={{
@@ -89,7 +89,7 @@ const optimalSchemaType = schemaTypeMap[currentCategory] || 'Article';
       },
       "publisher": {
         "@type": "Organization",
-        "name": "Multi-Insight Portal"
+        "name": "Thank Wisdom"
       },
       "mainEntityOfPage": url
     }

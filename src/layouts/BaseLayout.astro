@@ -5,13 +5,13 @@ import Footer from '../components/Footer.astro';
 
 // 1. Accept SEO properties dynamically from individual pages, with safe fallbacks
 const { 
-	title = "Multi-Insight Portal", 
+	title = "Thank Wisdom", 
 	description = "A data-first static intelligence dashboard delivering optimized analytics across science, tech, and markets.",
 	image = "/src/assets/blog/default-meta.jpg" 
 } = Astro.props;
 
 // 2. Compute the dynamic self-referencing canonical URL based on your production domain
-const siteUrl = "https://multi-insight-portal.pages.dev";
+const siteUrl = "https://thankwisdom.com";
 const canonicalURL = new URL(Astro.url.pathname, siteUrl);
 const ogImageUrl = new URL(image, siteUrl);
 ---
